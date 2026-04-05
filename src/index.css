@@ -1,0 +1,175 @@
+/* ===== GOOGLE FONT (ADD IN index.html HEAD IF NOT ADDED) ===== */
+/* <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"> */
+
+/* ===== ROOT VARIABLES ===== */
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #111827;
+  --subtext: #6b7280;
+
+  --border: #e5e7eb;
+
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+
+  --success: #22c55e;
+  --danger: #ef4444;
+}
+
+/* ===== BASE RESET ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  background-color: var(--bg);
+  color: var(--text);
+
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text);
+}
+
+p {
+  margin: 0;
+  color: var(--subtext);
+  font-size: 14px;
+}
+
+/* ===== INPUTS ===== */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: 14px;
+
+  padding: 8px 12px;
+
+  border-radius: 8px;
+  border: 1px solid var(--border);
+
+  background: #ffffff;
+  color: var(--text);
+
+  transition: all 0.2s ease;
+}
+
+/* HOVER */
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: #9ca3af;
+}
+
+/* FOCUS */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.15);
+}
+
+/* ===== SELECT CUSTOM ARROW ===== */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  padding-right: 36px;
+
+  cursor: pointer;
+
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%236b7280' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5.23 7.21a.75.75 0 011.06.02L10 11.185l3.71-3.955a.75.75 0 111.08 1.04l-4.24 4.52a.75.75 0 01-1.08 0l-4.24-4.52a.75.75 0 01.02-1.06z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+/* ===== BUTTONS ===== */
+button {
+  font-family: inherit;
+  font-size: 14px;
+
+  padding: 8px 14px;
+
+  border-radius: 8px;
+  border: none;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* PRIMARY BUTTON */
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(99,102,241,0.3);
+}
+
+/* SUCCESS */
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+.btn-success:hover {
+  opacity: 0.9;
+}
+
+/* DANGER */
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  opacity: 0.9;
+}
+
+/* ===== SCROLLBAR (PREMIUM TOUCH) ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+.insight-card,
+.calendar-section,
+.table-section {
+  transition: all 0.2s ease;
+}
+
+.insight-card:hover,
+.calendar-section:hover,
+.table-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}

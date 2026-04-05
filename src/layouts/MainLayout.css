@@ -1,0 +1,166 @@
+/* ===== ROOT LAYOUT ===== */
+.layout {
+  display: flex;
+  height: 100vh;
+  background: #f5f7fb;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 240px;
+  background: #0f172a;
+  color: #e5e7eb;
+
+  display: flex;
+  flex-direction: column;
+  padding: 16px 12px;
+
+  border-right: 1px solid #1e293b;
+  transition: width 0.25s ease;
+}
+
+/* ===== COLLAPSED ===== */
+.sidebar.collapsed {
+  width: 72px;
+}
+
+
+.collapse-btn {
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.collapse-btn:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+/* ===== LOGO ===== */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 6px;
+  margin-bottom: 20px;
+}
+
+/* CENTER WHEN COLLAPSED */
+.sidebar.collapsed .logo-container {
+  justify-content: center;
+}
+
+/* LOGO IMAGE */
+.sidebar-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid #22c55e;
+}
+
+/* LOGO TEXT */
+.logo-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f9fafb;
+}
+
+/* ===== MENU ===== */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ===== BUTTON ===== */
+.menu button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 12px;
+  border-radius: 10px;
+
+  background: transparent;
+  border: none;
+
+  color: #cbd5f5;
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* ===== HOVER ===== */
+.menu button:hover {
+  background: rgba(255,255,255,0.08);
+  color: #ffffff;
+}
+
+/* ===== ACTIVE ===== */
+.menu button.active {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #ffffff;
+}
+
+/* ===== ICON ===== */
+.icon {
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ===== COLLAPSED MODE ===== */
+.sidebar.collapsed .menu button .icon {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+
+.sidebar.collapsed .menu button.active {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 12px;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* PAGE CONTENT */
+.main-content > *:not(:first-child) {
+  padding: 20px 24px;
+  overflow-y: auto;
+}
+
+/* ===== MODAL (GLOBAL FIX) ===== */
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+
+  width: 420px;
+  max-width: 90%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}

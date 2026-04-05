@@ -1,0 +1,69 @@
+/* ROOT */
+.manager-insights {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* TOP ROW */
+.insights-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* BOTTOM */
+.insights-bottom {
+  width: 100%;
+}
+
+/* CARD */
+.insight-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* FULL WIDTH */
+.insight-card.full {
+  width: 100%;
+}
+
+/* HEADER */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* TABLE SPACING */
+.task-table {
+  margin-top: 10px;
+}
+
+.chart-container {
+  height: 300px;   /* ✅ CONTROL HEIGHT */
+  width: 100%;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #374151;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .insights-top {
+    grid-template-columns: 1fr;
+  }
+}

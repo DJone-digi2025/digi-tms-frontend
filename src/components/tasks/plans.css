@@ -1,0 +1,64 @@
+/* CONTAINER */
+.plans-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* UPLOAD CARD */
+.upload-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+/* HEADER */
+.upload-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.upload-header p {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ACTIONS */
+.upload-actions {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* MESSAGE */
+.upload-message {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.upload-message.success {
+  color: #16a34a;
+}
+
+.upload-message.error {
+  color: #dc2626;
+}
+
+/* INPUT */
+.plan-input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 13px;
+}
+
+.plan-input:focus {
+  outline: none;
+  border-color: #6366f1;
+}

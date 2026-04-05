@@ -1,0 +1,155 @@
+.dev-header {
+  display: flex;                 /* 🔥 makes horizontal */
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 20px;
+
+  background: white;
+  border-bottom: 1px solid #eee;
+
+  position: sticky;              /* optional but good */
+  top: 0;
+
+  z-index: 1000;
+}
+
+.dev-dropdown {
+  position: absolute;
+  top: 45px;
+  right: 0;
+
+  background: white;
+  border-radius: 10px;
+  width: 160px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  overflow: hidden;
+
+  z-index: 2000;
+}
+
+.dropdown-item {
+  padding: 10px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dropdown-item:hover {
+  background: #f3f4f6;
+}
+
+.dropdown-item.logout {
+  color: #ef4444;
+}
+
+.dev-left h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.dev-right {
+  display: flex;
+  align-items: center;
+}
+
+.dev-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 6px 10px;
+  border-radius: 10px;
+
+  transition: 0.2s;
+}
+
+.dev-profile:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.dev-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.dev-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.dev-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.dev-role {
+  font-size: 11px;
+  color: #6366f1;
+}
+
+.dev-logout {
+  margin-left: 12px;
+  padding: 6px 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #ef4444;
+  color: white;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dev-logout:hover {
+  background: #dc2626;
+}
+
+.dev-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dev-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* 🔥 BACKGROUND LOGO */
+/* 🔥 BRAND GLOW BACKGROUND */
+.bg-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(circle at center, rgba(34,197,94,0.15), transparent 60%),
+    radial-gradient(circle at 70% 30%, rgba(34,197,94,0.1), transparent 50%),
+    radial-gradient(circle at 30% 70%, rgba(99,102,241,0.1), transparent 50%);
+
+  animation: glowMove 12s ease-in-out infinite;
+}
+
+/* 🔥 SLOW FLOATING MOTION */
+@keyframes glowMove {
+  0% {
+    transform: scale(1) translate(0,0);
+  }
+  50% {
+    transform: scale(1.1) translate(10px, -10px);
+  }
+  100% {
+    transform: scale(1) translate(0,0);
+  }
+}

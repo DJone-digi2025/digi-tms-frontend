@@ -1,0 +1,111 @@
+/* ===== CONTAINER ===== */
+.manager-insights {
+  padding: 20px;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+/* ===== TOP GRID ===== */
+.insights-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* ===== CARDS ===== */
+.insight-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.insight-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.06);
+}
+
+/* ===== HEADER ===== */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.card-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ===== DROPDOWNS ===== */
+.card-header select,
+.select-wrapper select,
+.select-wrapper input {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  font-size: 13px;
+  background: #f9fafb;
+  outline: none;
+}
+
+.card-header select:focus,
+.select-wrapper select:focus,
+.select-wrapper input:focus {
+  border-color: #6366f1;
+}
+
+/* ===== STATS ===== */
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #374151;
+}
+
+.stats-row span {
+  background: #f3f4f6;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* ===== CHART AREA ===== */
+.chart-container {
+  height: 260px;
+  position: relative;
+}
+
+/* ===== TEAM FILTER WRAPPER ===== */
+.select-wrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ===== BOTTOM SECTION ===== */
+.insights-bottom {
+  margin-top: 20px;
+}
+
+.insight-card.full {
+  width: 100%;
+}
+
+/* ===== SMOOTH TYPOGRAPHY ===== */
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* ===== SCROLL BEHAVIOR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
