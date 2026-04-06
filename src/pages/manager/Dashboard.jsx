@@ -341,6 +341,13 @@ const stats = getStats();
 
 let filteredTasks = tasks;
 
+if (filters.priority) {
+  filteredTasks = filteredTasks.filter(t =>
+    (t.priority_override || t.priority)
+      ?.toLowerCase() === filters.priority.toLowerCase()
+  );
+}
+
 if (statusFilter) {
   filteredTasks = filteredTasks.filter(
     t => t.status === statusFilter
