@@ -45,7 +45,9 @@ const ManagerInsights = () => {
 
   /* ===== CLIENT ANALYSIS ===== */
 
-const baseTasks = tasks.filter(t => t.task_category === taskCategory);
+const baseTasks = tasks.filter(
+  t => t.task_category === taskCategory && t.status !== "CANCELLED"
+);
 
 const filteredClientTasks = selectedClient
   ? baseTasks.filter(t => t.client_name === selectedClient)
@@ -68,10 +70,12 @@ const filteredClientTasks = selectedClient
 
   const clientData = {
     labels: clientNames,
-    datasets: [
-      { label: "Pending", data: clientPending, backgroundColor: "#6366f1" },
-      { label: "Completed", data: clientCompleted, backgroundColor: "#22c55e" }
-    ]
+datasets: [
+  { label: "Pending", data: teamPending, backgroundColor: "#6366f1" },
+  { label: "Completed", data: teamCompleted, backgroundColor: "#22c55e" },
+  { label: "Rework", data: teamRework, backgroundColor: "#ef4444" },
+  { label: "Cancelled", data: teamCancelled, backgroundColor: "#9ca3af" } // 🔥 ADD
+]
   };
   const totalClientPending = clientPending.reduce((a, b) => a + b, 0);
   const totalClientCompleted = clientCompleted.reduce((a, b) => a + b, 0);
@@ -88,6 +92,8 @@ const members = [
 
   // ✅ Filter tasks based on selected member
 const filteredTeamTasks = tasks.filter(t => {
+  if (t.status === "CANCELLED") return false;
+
   const memberMatch = selectedMember
     ? t.team_members?.name === selectedMember
     : true;
@@ -118,10 +124,18 @@ const teamCompleted = members.map(member =>
 );
 
   const teamRework = members.map(member =>
+    
   filteredTeamTasks.filter(
     t =>
       t.team_members?.name === member &&
       t.status === "REWORK"
+  ).length
+);
+const teamCancelled = members.map(member =>
+  tasks.filter(
+    t =>
+      t.team_members?.name === member &&
+      t.status === "CANCELLED"
   ).length
 );
 
@@ -223,6 +237,7 @@ return (
             <span>Total: {totalTeamTasks}</span>
             <span>Pending: {totalTeamPending}</span>
             <span>Completed: {totalTeamCompleted}</span>
+            <span>Cancelled: {totalTeamCancelled}</span>
           </div>
 
           <div className="chart-container">
