@@ -123,14 +123,24 @@ const fetchTasks = async () => {
       }
     }
 
-    setAllTasks(
-      (data || []).sort((a, b) => {
-  const dateDiff = new Date(a.assign_date) - new Date(b.assign_date);
-  if (dateDiff !== 0) return dateDiff;
+const getPriorityValue = (task) => {
+  const p = (task.priority_override || task.priority || "").toLowerCase();
+  if (p === "high") return 3;
+  if (p === "normal") return 2;
+  if (p === "low") return 1;
+  return 0;
+};
 
-  return a.id - b.id; // 🔥 stable order
-})
-    );
+setAllTasks(
+  [...(data || [])].sort((a, b) => {
+    // 🔥 1. Priority first
+    const prioDiff = getPriorityValue(b) - getPriorityValue(a);
+    if (prioDiff !== 0) return prioDiff;
+
+    // 🔥 2. Newest first
+    return (b.id || 0) - (a.id || 0);
+  })
+);
 
   } catch (err) {
     console.error(err);
