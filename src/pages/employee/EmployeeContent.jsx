@@ -173,12 +173,14 @@ const fetchTasks = async () => {
   }, [user, tab, page]);
 
 useEffect(() => {
+  if (!user?.id) return;
+
   const interval = setInterval(() => {
     fetchTasks();
-  }, 5000); // every 5 sec
+  }, 5000);
 
   return () => clearInterval(interval);
-}, []);
+}, [user, tab, page]); // 🔥 IMPORTANT
 
 useEffect(() => {
   if (!tasks.length) return;
