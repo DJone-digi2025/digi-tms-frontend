@@ -152,15 +152,24 @@ setAllTasks(
 
       // 🔥 STRATEGIST FILTER
 if (user.role === "strategist") {
-  filtered = filtered.filter(task =>
-    task.strategist_id === user.id &&
-    (
-      task.is_manual === true ||   // 🔥 ADD THIS LINE
-      task.ready_for_publish === true ||
-      task.stage === "publish" ||
-      task.status === "SUBMITTED"
-    )
-  );
+  filtered = filtered.filter(task => {
+
+    // ❌ NEVER show cancelled
+    if (task.status === "CANCELLED") return false;
+
+    // ❌ must belong to this strategist
+    if (task.strategist_id !== user.id) return false;
+
+    // ✅ manual tasks (only if assigned to this strategist)
+    if (task.is_manual === true) return true;
+
+    // ✅ auto workflow tasks
+    if (task.ready_for_publish === true) return true;
+
+    if (task.stage === "publish") return true;
+
+    return false;
+  });
 }
 
     if (clientFilter) {
