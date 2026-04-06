@@ -43,7 +43,7 @@ const EmployeeInsights = () => {
             ? my.filter(t => t.task_category === "design")
             : my;
 
-        setMyTasks(filteredMy);
+        setMyTasks(filteredMy.filter(t => t.status !== "CANCELLED"));
 
         const filteredAll =
           user.role === "marketing"
@@ -52,7 +52,7 @@ const EmployeeInsights = () => {
             ? all.filter(t => t.task_category === "design")
             : all;
 
-        setAllTasks(filteredAll);
+        setAllTasks(filteredAll.filter(t => t.status !== "CANCELLED"));
 
       } catch (err) {
         console.error(err);
