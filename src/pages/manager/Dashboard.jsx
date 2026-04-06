@@ -246,10 +246,12 @@ const fetchTasks = async () => {
 
     } else {
       // 🔥 THIS WAS MISSING
-      data = await getManagerTasks({
-        page,
-        ...filters
-      });
+const { priority, ...restFilters } = filters;
+
+data = await getManagerTasks({
+  page,
+  ...restFilters
+});
 
       setTasks(data);
     }
