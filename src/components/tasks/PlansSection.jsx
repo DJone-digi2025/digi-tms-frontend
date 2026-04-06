@@ -34,7 +34,7 @@ const PlansSection = () => {
   console.log("USER ID:", user.id);
   console.log("TASK STRATEGIST IDS:", allTasks.map(t => t.strategist_id));
 
-    let filtered = allTasks;
+    let filtered = allTasks.filter(t => t.task_category !== "marketing");
 
 
 const sorted = filtered
