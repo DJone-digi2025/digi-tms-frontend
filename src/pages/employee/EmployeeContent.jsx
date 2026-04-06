@@ -173,6 +173,14 @@ const fetchTasks = async () => {
   }, [user, tab, page]);
 
 useEffect(() => {
+  const interval = setInterval(() => {
+    fetchTasks();
+  }, 5000); // every 5 sec
+
+  return () => clearInterval(interval);
+}, []);
+
+useEffect(() => {
   if (!tasks.length) return;
 
   const initialComments = {};
