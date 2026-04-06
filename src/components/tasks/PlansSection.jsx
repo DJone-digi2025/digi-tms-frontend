@@ -230,6 +230,17 @@ const sorted = filtered
                     placeholder="Paste plan link"
                   />
 
+                  {(formData[task.id]?.link || task.plan_link) && (
+                    <a
+                      href={formData[task.id]?.link ?? task.plan_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ display: "block", marginTop: "5px", color: "#2563eb" }}
+                    >
+                      🔗 View Link
+                    </a>
+                  )}
+
                   <input
                     type="file"
                     onChange={(e) => handleFileChange(task.id, e.target.files[0])}
