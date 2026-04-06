@@ -231,16 +231,14 @@ const sorted = filtered
                   />
 
                   {(formData[task.id]?.link || task.plan_link) && (
-                    <div style={{ textAlign: "right", marginTop: "5px" }}>
-                      <a
-                        href={formData[task.id]?.link ?? task.plan_link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: "#2563eb" }}
-                      >
-                        🔗 View Link
-                      </a>
-                    </div>
+                    <a
+                      href={formData[task.id]?.link ?? task.plan_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ display: "block", marginTop: "5px", color: "#2563eb" }}
+                    >
+                      🔗 View Link
+                    </a>
                   )}
 
                   <input
