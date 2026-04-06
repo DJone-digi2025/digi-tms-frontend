@@ -343,6 +343,23 @@ const stats = getStats();
 
 let filteredTasks = tasks;
 
+const getPriorityValue = (task) => {
+  const p = (task.priority_override || task.priority || "").toLowerCase();
+  if (p === "high") return 3;
+  if (p === "normal") return 2;
+  if (p === "low") return 1;
+  return 0;
+};
+
+filteredTasks = [...filteredTasks].sort((a, b) => {
+  // 🔥 Priority first
+  const prioDiff = getPriorityValue(b) - getPriorityValue(a);
+  if (prioDiff !== 0) return prioDiff;
+
+  // 🔥 Then newest first
+  return (b.id || 0) - (a.id || 0);
+});
+
 if (filters.priority) {
   filteredTasks = filteredTasks.filter(t =>
     (t.priority_override || t.priority)
