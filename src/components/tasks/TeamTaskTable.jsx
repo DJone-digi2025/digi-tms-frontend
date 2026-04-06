@@ -109,9 +109,13 @@ const TeamTaskTable = ({
       <td>{task.description || "-"}</td>
 
       <td>
-        <span className={`priority ${task.priority?.toLowerCase()}`}>
-          {task.priority || "normal"}
-        </span>
+<span
+  className={`priority ${
+    (task.priority_override || task.priority)?.toLowerCase()
+  }`}
+>
+  {task.priority_override || task.priority || "normal"}
+</span>
       </td>
 
       <td>
