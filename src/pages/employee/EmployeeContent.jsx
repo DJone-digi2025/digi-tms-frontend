@@ -141,16 +141,17 @@ const fetchTasks = async () => {
     let filtered = allTasks;
 
       // 🔥 STRATEGIST FILTER
-    if (user.role === "strategist") {
-      filtered = filtered.filter(task =>
-        task.strategist_id === user.id &&
-        (
-          task.ready_for_publish === true ||
-          task.stage === "publish" ||
-          task.status === "SUBMITTED"
-        )
-      );
-    }
+if (user.role === "strategist") {
+  filtered = filtered.filter(task =>
+    task.strategist_id === user.id &&
+    (
+      task.is_manual === true ||   // 🔥 ADD THIS LINE
+      task.ready_for_publish === true ||
+      task.stage === "publish" ||
+      task.status === "SUBMITTED"
+    )
+  );
+}
 
     if (clientFilter) {
       filtered = filtered.filter(t =>
