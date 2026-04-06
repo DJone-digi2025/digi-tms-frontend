@@ -103,7 +103,7 @@ const handleSubmit = async (taskId) => {
 
 const fetchTasks = async () => {
   try {
-    setTasks([]); // clear old data
+     // clear old data
 
     let data;
 
