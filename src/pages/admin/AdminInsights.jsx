@@ -72,10 +72,8 @@ const filteredClientTasks = selectedClient
   const clientData = {
     labels: clientNames,
 datasets: [
-  { label: "Pending", data: teamPending, backgroundColor: "#6366f1" },
-  { label: "Completed", data: teamCompleted, backgroundColor: "#22c55e" },
-  { label: "Rework", data: teamRework, backgroundColor: "#ef4444" },
-  { label: "Cancelled", data: teamCancelled, backgroundColor: "#9ca3af" } // 🔥 ADD
+  { label: "Pending", data: clientPending, backgroundColor: "#6366f1" },
+  { label: "Completed", data: clientCompleted, backgroundColor: "#22c55e" }
 ]
   };
   const totalClientPending = clientPending.reduce((a, b) => a + b, 0);
@@ -141,20 +139,21 @@ const teamCancelled = members.map(member =>
 const totalTeamPending = teamPending.reduce((a, b) => a + b, 0);
 const totalTeamCompleted = teamCompleted.reduce((a, b) => a + b, 0);
 const totalTeamRework = teamRework.reduce((a, b) => a + b, 0);
-
+const totalTeamCancelled = teamCancelled.reduce((a, b) => a + b, 0);
 const totalTeamTasks = filteredTeamTasks.length;
 
   // ✅ Chart data
 const teamData = {
-  labels: ["Pending", "Completed", "Rework"],
+  labels: ["Pending", "Completed", "Rework", "Cancelled"],
   datasets: [
     {
       data: [
         totalTeamPending,
         totalTeamCompleted,
-        totalTeamRework
+        totalTeamRework,
+        totalTeamCancelled
       ],
-      backgroundColor: ["#6366f1", "#22c55e", "#ef4444"]
+      backgroundColor: ["#6366f1", "#22c55e", "#ef4444", "#9ca3af"]
     }
   ]
 };
