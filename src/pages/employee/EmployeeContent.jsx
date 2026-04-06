@@ -210,18 +210,21 @@ useEffect(() => {
 useEffect(() => {
   if (!tasks.length) return;
 
-  const initialComments = {};
+  setComments(prev => {
+    const updated = { ...prev };
 
-  tasks.forEach(task => {
-    // ✅ ONLY designers should see previous delay reason
-    if (user.role === "designer" && task.reason_for_delay) {
-      initialComments[task.id] = task.reason_for_delay;
-    }
+    tasks.forEach(task => {
+      if (
+        user.role === "designer" &&
+        task.reason_for_delay &&
+        !updated[task.id]
+      ) {
+        updated[task.id] = task.reason_for_delay;
+      }
+    });
 
-    // ❌ strategist → DO NOTHING (keep empty)
+    return updated;
   });
-
-  setComments(initialComments);
 
 }, [tasks, user.role]);
 
