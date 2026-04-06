@@ -154,19 +154,24 @@ setAllTasks(
 if (user.role === "strategist") {
   filtered = filtered.filter(task => {
 
-    // ❌ NEVER show cancelled
-    if (task.status === "CANCELLED") return false;
+    // ❌ remove cancelled
+    if ((task.status || "").toUpperCase() === "CANCELLED") return false;
 
-    // ❌ must belong to this strategist
+    // ❌ must belong to strategist
     if (task.strategist_id !== user.id) return false;
 
-    // ✅ manual tasks (only if assigned to this strategist)
-    if (task.is_manual === true) return true;
-
-    // ✅ auto workflow tasks
+    // ✅ workflow tasks ONLY after approval
     if (task.ready_for_publish === true) return true;
 
     if (task.stage === "publish") return true;
+
+    // ✅ manual tasks ONLY if directly assigned to strategist
+    if (
+      task.is_manual === true &&
+      (task.team_member_id === null || task.team_member_id === user.id)
+    ) {
+      return true;
+    }
 
     return false;
   });
