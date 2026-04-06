@@ -38,6 +38,7 @@ const TeamTaskTable = ({
                     <th>Plan Link</th>
                     <th>Plan File</th>
                     <th>Description</th>
+                    <th>Priority</th>
                     <th>Status</th>
                     <th>Delay Reason</th>
                     <th>Manager Comment</th>
@@ -106,6 +107,12 @@ const TeamTaskTable = ({
       </td>
 
       <td>{task.description || "-"}</td>
+
+      <td>
+        <span className={`priority ${task.priority?.toLowerCase()}`}>
+          {task.priority || "normal"}
+        </span>
+      </td>
 
       <td>
         <span className={`status ${task.status.toLowerCase()}`}>
