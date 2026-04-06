@@ -25,6 +25,7 @@ const TeamTaskTable = ({
                   <>
                     <th>Task Code</th>
                     <th>Assigned Date</th>
+                    <th>Priority</th>  
                     <th>Status</th>
                     <th>Delay Reason</th>
                     <th>Manager Comment</th>
@@ -60,6 +61,16 @@ const TeamTaskTable = ({
       <td>{task.task_code || `#${task.id}`}</td>
 
       <td>{task.assign_date}</td>
+
+      <td>
+        <span
+          className={`priority ${
+            (task.priority_override || task.priority)?.toLowerCase()
+          }`}
+        >
+          {task.priority_override || task.priority || "normal"}
+        </span>
+      </td>
 
       <td>
         <span className={`status ${task.status.toLowerCase()}`}>
