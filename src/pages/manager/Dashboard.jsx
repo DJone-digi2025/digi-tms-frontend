@@ -98,14 +98,26 @@ if (
 try {
 
   // 🔥 VALIDATION (add this first)
+
+  if (newTask.client_name === "custom" && !newTask.custom_client_name) {
+    alert("Enter custom client name");
+    return;
+  }
+
   if (newTask.content_type === "custom" && !newTask.custom_content_type) {
     alert("Enter custom content type");
     return;
   }
 
   // 🔥 TRANSFORM DATA
+  const finalClientName =
+    newTask.client_name === "custom"
+      ? newTask.custom_client_name?.trim()
+      : newTask.client_name;
+
   const finalData = {
     ...newTask,
+    client_name: finalClientName,
     content_type:
       newTask.content_type === "custom"
         ? newTask.custom_content_type?.toLowerCase().trim()
@@ -752,7 +764,17 @@ return (
           {[...new Set(tasks.map(t => t.client_name))].map((c, i) => (
             <option key={i} value={c}>{c}</option>
           ))}
+          <option value="custom">Custom</option> 
         </select>
+
+        {newTask.client_name === "custom" && (
+          <input
+            type="text"
+            placeholder="Enter custom client name"
+            name="custom_client_name"
+            onChange={handleCreateChange}
+          />
+        )}
 
         {/* CONTENT */}
         <select name="content_type" onChange={handleCreateChange}>
