@@ -102,6 +102,16 @@ const MainLayout = ({ children, setPage, page }) => {
                 {!collapsed && <span>Trash</span>}
               </button>
 
+              <button className={page === "billing" ? "active" : ""} onClick={() => setPage("billing")}>
+                <span className="icon"><DollarSign size={18} /></span>
+                {!collapsed && <span>Bills</span>}
+              </button>
+
+              <button className={page === "meetings" ? "active" : ""} onClick={() => setPage("meetings")}>
+                <span className="icon"><CalendarDays size={18} /></span>
+                {!collapsed && <span>Meetings</span>}
+              </button>
+
               <button className={page === "plans" ? "active" : ""} onClick={() => setPage("plans")}>
                 <span className="icon"><Folder size={18} /></span>
                 {!collapsed && <span>Plans</span>}

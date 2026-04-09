@@ -15,7 +15,6 @@ import {
 } from "chart.js";
 
 import "./insights.css";
-import BillingSection from "../strategist/BillingSection";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -246,19 +245,6 @@ return (
       </div>
 
     </div>
-
-    {/* ===== BOTTOM (FULL WIDTH TABLE) ===== */}
-<div className="insights-bottom">
-  <div className="insight-card full">
-
-    <div className="card-header">
-      <h3>Billing</h3>
-    </div>
-
-    <BillingSection />
-
-  </div>
-</div>
 
 </div>
   

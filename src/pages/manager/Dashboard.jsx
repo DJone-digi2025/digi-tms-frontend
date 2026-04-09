@@ -17,6 +17,7 @@ import { pauseTasks, pauseUsers } from "../../api/taskApi";
 import { setPriorityOverride } from "../../api/taskApi";
 import { CalendarClock } from "lucide-react";
 import MeetingsSection from "../strategist/MeetingsSection";
+import BillingSection from "../strategist/BillingSection";
 
 const Dashboard = () => {
 
@@ -744,14 +745,6 @@ return (
   </div>
 )}
 
-    {/* PLANS */}
-    {page === "plans" && (
-      <div className="section">
-        <div className="section-title">Plans</div>
-
-        <PlansSection />
-      </div>
-    )}
 
     {page === "meetings" && (
       <div className="page-section">
@@ -765,6 +758,30 @@ return (
         </div>
       </div>
     )}
+
+{page === "billing" && (
+  <div className="page-section">
+    <div className="section-header">
+      <h2>Billing</h2>
+      <p>Manage client billing</p>
+    </div>
+
+    <div className="section-content">
+      <BillingSection page={page} />
+    </div>
+  </div>
+)}
+
+    {/* PLANS */}
+    {page === "plans" && (
+      <div className="section">
+        <div className="section-title">Plans</div>
+
+        <PlansSection />
+      </div>
+    )}
+
+
 
 {/* 🔥 CREATE MODAL */}
   {showModal && (
