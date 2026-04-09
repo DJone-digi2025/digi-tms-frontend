@@ -71,7 +71,7 @@ const StrategistDashboard = () => {
           </div>
 
           <div className="section-content">
-            <BillingSection />
+            <BillingSection page={page} />
           </div>
 
         </div>

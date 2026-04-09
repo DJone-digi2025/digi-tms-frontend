@@ -10,7 +10,7 @@ import { useAuth } from "../../context/AuthContext";
 import "./BillingSection.css";
 import BASE_URL from "../../config/api";
 
-const BillingSection = () => {
+const BillingSection = ({page}) => {
   const { user } = useAuth();
 
 const isEditableUser =
@@ -58,11 +58,12 @@ const fetchMeta = async () => {
   }
 };
 
-  useEffect(() => {
+useEffect(() => {
+  if (page === "billing") {
     fetchBills();
     fetchMeta();
-  }, []);
-
+  }
+}, [page]);
 const handleChange = (e) => {
   const { name, value } = e.target;
 
