@@ -240,73 +240,120 @@ const grouped = Object.values(
 </tbody>
       </table>
 
-      {showDetails &&
+{showDetails &&
   createPortal(
-    <div className="modal-overlay" onClick={() => setShowDetails(false)}>
+    <div
+      className="modal-overlay"
+      onClick={() => setShowDetails(false)}
+    >
       <div
-        className="modal-content"
-        style={{ width: "600px" }}
+        className="modal"
         onClick={(e) => e.stopPropagation()}
+        style={{
+          width: "90%",
+          maxWidth: "900px",
+          maxHeight: "80vh",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          padding: "20px"
+        }}
       >
-        <h3>Client Billing Details</h3>
+        {/* HEADER */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "10px"
+          }}
+        >
+          <h3>Client Billing Details</h3>
 
+          <button onClick={() => setShowDetails(false)}>
+            Close
+          </button>
+        </div>
 
-    <div style={{ fontSize: "12px", color: "#666" }}>Client</div>
-    <div style={{ fontWeight: "600" }}>{selectedBill?.client_name}</div>
-  </div>
+        {/* CLIENT INFO */}
+        <div style={{ marginBottom: "10px" }}>
+          <div style={{ fontSize: "12px", color: "#666" }}>
+            Client
+          </div>
+          <div style={{ fontWeight: "600" }}>
+            {selectedBill?.client_name}
+          </div>
+        </div>
 
-  <div>
-    <div style={{ fontSize: "12px", color: "#666" }}>Contract</div>
-    <div>₹{getClientTotal(selectedBill?.client_name)}</div>
-  </div>
-
-
+        <div style={{ marginBottom: "10px" }}>
+          <div style={{ fontSize: "12px", color: "#666" }}>
+            Contract
+          </div>
+          <div>
+            ₹{getClientTotal(selectedBill?.client_name)}
+          </div>
+        </div>
 
         <hr />
 
         <h4 style={{ marginTop: "10px" }}>Entries</h4>
 
-        <div style={{ maxHeight: "300px", overflowY: "auto" }}>
+        {/* TABLE SCROLL */}
+        <div
+          style={{
+            overflowY: "auto",
+            overflowX: "auto",
+            maxHeight: "50vh"
+          }}
+        >
           <table className="task-table">
             <thead>
               <tr>
-<th>Content</th>
-<th>Description</th>
-<th>Count</th>
-<th>Credited</th>
-<th>Logged By</th>
+                <th>Content</th>
+                <th>Description</th>
+                <th>Count</th>
+                <th>Credited</th>
+                <th>Logged By</th>
               </tr>
             </thead>
+
             <tbody>
               {bills
-                .filter(b => b.client_name === selectedBill?.client_name)
+                .filter(
+                  (b) =>
+                    b.client_name ===
+                    selectedBill?.client_name
+                )
                 .map((entry) => (
                   <tr key={entry.id}>
                     <td>{entry.content_type}</td>
-                    <td>{entry.content_description || "-"}</td>
+                    <td>
+                      {entry.content_description || "-"}
+                    </td>
                     <td>{entry.content_count}</td>
-<td>
-  ₹{entry.amount_credited}
-  <div style={{ fontSize: "11px", color: "#888" }}>
-    {entry.created_at?.split("T")[0]}
-  </div>
-</td>
 
-<td>{entry.logged_by || "-"}</td>
+                    <td>
+                      ₹{entry.amount_credited}
+                      <div
+                        style={{
+                          fontSize: "11px",
+                          color: "#888"
+                        }}
+                      >
+                        {entry.created_at?.split("T")[0]}
+                      </div>
+                    </td>
+
+                    <td>{entry.logged_by || "-"}</td>
                   </tr>
                 ))}
             </tbody>
           </table>
         </div>
-
-        <div style={{ marginTop: "15px" }}>
-          <button onClick={() => setShowDetails(false)}>Close</button>
-        </div>
-      </div>,
+      </div>
+    </div>,
     document.body
-  )
-}
-
+  )}
       {/* PAYMENT MODAL */}
       {isEditableUser && paymentModal &&
         createPortal(
