@@ -171,64 +171,73 @@ const grouped = Object.values(
           </tr>
         </thead>
 
-        <tbody>
-          {bills
-            .filter((b) =>
-              selectedClient ? b.client_name === selectedClient : true
-            )
-            .map((b) => (
-              <tr key={b.id}>
-              <td>{b.client_name}</td>
+<tbody>
+  {clients
+    .filter((c) =>
+      selectedClient ? c.client_name === selectedClient : true
+    )
+    .map((client) => {
 
-              <td>
-                <span style={{
-                  padding: "4px 10px",
-                  borderRadius: "12px",
-                  background: "#dcfce7",
-                  color: "#166534",
-                  fontSize: "12px"
-                }}>
-                  Active
-                </span>
-              </td>
+      const clientBills = bills.filter(
+        (b) => b.client_name === client.client_name
+      );
 
-              <td>₹{getClientTotal(b.client_name)}</td>
+      const totalCredited = clientBills.reduce(
+        (sum, b) => sum + (b.amount_credited || 0),
+        0
+      );
 
-              <td>₹{b.amount_credited || 0}</td>
+      return (
+        <tr key={client.client_name}>
+          <td>{client.client_name}</td>
 
-                {isEditableUser && (
+          <td>
+            <span style={{
+              padding: "4px 10px",
+              borderRadius: "12px",
+              background: client.active ? "#dcfce7" : "#fee2e2",
+              color: client.active ? "#166534" : "#991b1b",
+              fontSize: "12px"
+            }}>
+              {client.active ? "Active" : "Inactive"}
+            </span>
+          </td>
 
-                  <td>
-                    <div style={{ display: "flex", gap: "8px" }}>
+          <td>₹{client.total_contract_amount || 0}</td>
 
-                      <button
-                        className="primary-btn"
-                        onClick={() => {
-                          setSelectedBill(b);
-                          setShowDetails(true);
-                        }}
-                      >
-                        Details
-                      </button>
+          <td>₹{totalCredited}</td>
 
-                      {isEditableUser && (
-                        <button
-                          className="primary-btn"
-                          onClick={() => {
-                            setSelectedBill(b);
-                            setPaymentModal(true);
-                          }}
-                        >
-                          Update
-                        </button>
-                      )}
+          {isEditableUser && (
+            <td>
+              <div style={{ display: "flex", gap: "8px" }}>
 
-                    </div>
-                  </td>
-                )}
-              </tr>
-            ))}
-        </tbody>
+                <button
+                  className="primary-btn"
+                  onClick={() => {
+                    setSelectedBill(client);
+                    setShowDetails(true);
+                  }}
+                >
+                  Details
+                </button>
+
+                <button
+                  className="primary-btn"
+                  onClick={() => {
+                    setSelectedBill(client);
+                    setPaymentModal(true);
+                  }}
+                >
+                  Update
+                </button>
+
+              </div>
+            </td>
+          )}
+        </tr>
+      );
+    })}
+</tbody>
       </table>
 
       {showDetails &&
