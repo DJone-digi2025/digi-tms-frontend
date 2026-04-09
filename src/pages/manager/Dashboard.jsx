@@ -16,6 +16,7 @@ import { getAssignDatePreview } from "../../api/taskApi";
 import { pauseTasks, pauseUsers } from "../../api/taskApi";
 import { setPriorityOverride } from "../../api/taskApi";
 import { CalendarClock } from "lucide-react";
+import MeetingsSection from "../strategist/MeetingsSection";
 
 const Dashboard = () => {
 
@@ -751,6 +752,20 @@ return (
         <PlansSection />
       </div>
     )}
+
+    {page === "meetings" && (
+      <div className="page-section">
+        <div className="section-header">
+          <h2>Meetings</h2>
+          <p>Schedule and manage meetings</p>
+        </div>
+
+        <div className="section-content">
+          <MeetingsSection />
+        </div>
+      </div>
+    )}
+
 {/* 🔥 CREATE MODAL */}
   {showModal && (
     <div className="modal-overlay">

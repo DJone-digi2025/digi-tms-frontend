@@ -8,6 +8,7 @@ import {
 import { createPortal } from "react-dom";
 import { useAuth } from "../../context/AuthContext";
 import "./BillingSection.css";
+import BASE_URL from "../../config/api";
 
 const BillingSection = () => {
   const { user } = useAuth();
@@ -34,7 +35,7 @@ const [form, setForm] = useState({
 
   const [bills, setBills] = useState([]);
   const [clients, setClients] = useState([]);
-  const [contentTypes, setContentTypes] = useState([]);
+
   const [selectedClient, setSelectedClient] = useState("");
 
   const fetchBills = async () => {
@@ -46,16 +47,16 @@ const [form, setForm] = useState({
     }
   };
 
-  const fetchMeta = async () => {
-    try {
-      const tasks = await getAllTasks();
+const fetchMeta = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/clients`)
+    const data = await res.json();
 
-      setClients([...new Set(tasks.map(t => t.client_name))]);
-      setContentTypes([...new Set(tasks.map(t => t.content_type))]);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+    setClients(data);
+  } catch (err) {
+    console.error(err);
+  }
+};
 
   useEffect(() => {
     fetchBills();
@@ -69,7 +70,7 @@ const handleChange = (e) => {
 
   // ✅ when client is selected → update summary
 if (name === "client_name") {
-  fetch(`http://localhost:5000/clients`)
+  fetch(`${BASE_URL}/clients`)
     .then(res => res.json())
     .then(data => {
       const client = data.find(c => c.client_name === value);
@@ -115,41 +116,35 @@ setForm({
     }
   };
 
-  const handlePayment = async () => {
-    const amount = Number(paymentAmount);
 
-    if (!amount || amount <= 0) {
-      alert("Enter valid amount");
-      return;
+
+const getClientTotal = (clientName) => {
+  const client = clients.find(c => c.client_name === clientName);
+  return client?.total_contract_amount || 0;
+};
+
+const grouped = Object.values(
+  bills.reduce((acc, bill) => {
+    if (!acc[bill.client_name]) {
+      acc[bill.client_name] = {
+        ...bill,
+        amount_credited: 0
+      };
     }
 
-    if (amount > selectedBill.pending_amount) {
-      alert("Amount exceeds pending");
-      return;
-    }
+    acc[bill.client_name].amount_credited += bill.amount_credited || 0;
 
-    try {
-      await updatePayment(selectedBill.id, amount);
-      setPaymentModal(false);
-      setPaymentAmount("");
-      setSelectedBill(null);
-      fetchBills();
-    } catch (err) {
-      console.error(err);
-      alert("Payment update failed");
-    }
-  };
+    return acc;
+  }, {})
+);
 
   return (
     <div>
 
       {/* HEADER */}
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        {isEditableUser && (
-          <button className="primary-btn" onClick={() => setShowModal(true)}>
-            + Add Bill
-          </button>
-        )}
+
+        )
       </div>
 
       <div className="filter-bar">
@@ -158,9 +153,9 @@ setForm({
           onChange={(e) => setSelectedClient(e.target.value)}
         >
           <option value="">All Clients</option>
-          {clients.map((c, i) => (
-            <option key={i} value={c}>{c}</option>
-          ))}
+        {clients.map((c, i) => (
+          <option key={i} value={c.client_name}>{c.client_name}</option>
+        ))}
         </select>
       </div>
 
@@ -169,11 +164,9 @@ setForm({
         <thead>
           <tr>
             <th>Client</th>
-            <th>Content</th>
+            <th>Status</th>
             <th>Total</th>
-            <th>Credited</th>
-            <th>Pending</th>
-            
+            <th>Credited</th>      
 
             {isEditableUser && <th>Actions</th>}
           </tr>
@@ -186,11 +179,23 @@ setForm({
             )
             .map((b) => (
               <tr key={b.id}>
-                <td>{b.client_name}</td>
-                <td>{b.content_type}</td>
-                <td>₹{b.total_amount}</td>
-                <td>₹{b.total_received || b.amount_credited}</td>
-                <td>₹{b.pending_amount}</td>
+              <td>{b.client_name}</td>
+
+              <td>
+                <span style={{
+                  padding: "4px 10px",
+                  borderRadius: "12px",
+                  background: "#dcfce7",
+                  color: "#166534",
+                  fontSize: "12px"
+                }}>
+                  Active
+                </span>
+              </td>
+
+              <td>₹{getClientTotal(b.client_name)}</td>
+
+              <td>₹{b.amount_credited || 0}</td>
 
                 {isEditableUser && (
 
@@ -227,54 +232,6 @@ setForm({
         </tbody>
       </table>
 
-      {/* Add BILL MODAL */}
-      {isEditableUser && showModal &&
-        createPortal(
-          <div className="modal-overlay" onClick={() => setShowModal(false)}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <h3>Add Bill</h3>
-
-              <select name="client_name" value={form.client_name} onChange={handleChange}>
-                <option value="">Select Client</option>
-                {clients.map((c, i) => (
-                  <option key={i} value={c}>{c}</option>
-                ))}
-              </select>
-
-              <p style={{ fontSize: "13px", color: "#555" }}>
-                Total Contract: ₹{clientSummary?.total_amount || "-"}
-              </p>
-
-              <p style={{ fontSize: "13px", color: "#555" }}>
-                Pending: ₹{clientSummary?.pending_amount || "-"}
-              </p>
-
-              <select name="content_type" value={form.content_type} onChange={handleChange}>
-                <option value="">Select Content</option>
-                {contentTypes.map((c, i) => (
-                  <option key={i} value={c}>{c}</option>
-                ))}
-              </select>
-
-              <input name="content_count" type="number" placeholder="Content Count" value={form.content_count} onChange={handleChange} />
-              <input
-                name="content_description"
-                placeholder="Content Description (e.g., Reel for Diwali)"
-                value={form.content_description || ""}
-                onChange={handleChange}
-              />
-              <input name="amount_credited" type="number" placeholder="Amount Credited" value={form.amount_credited} onChange={handleChange} />
-
-              <div style={{ display: "flex", gap: "10px" }}>
-                <button onClick={handleSubmit}>Save</button>
-                <button onClick={() => setShowModal(false)}>Cancel</button>
-              </div>
-            </div>
-          </div>,
-          document.body
-        )
-      }
-
       {showDetails &&
   createPortal(
     <div className="modal-overlay" onClick={() => setShowDetails(false)}>
@@ -285,34 +242,17 @@ setForm({
       >
         <h3>Client Billing Details</h3>
 
-<div style={{
-  display: "flex",
-  justifyContent: "space-between",
-  marginBottom: "15px",
-  padding: "10px",
-  background: "#f8fafc",
-  borderRadius: "8px"
-}}>
-  <div>
+
     <div style={{ fontSize: "12px", color: "#666" }}>Client</div>
     <div style={{ fontWeight: "600" }}>{selectedBill?.client_name}</div>
   </div>
 
   <div>
     <div style={{ fontSize: "12px", color: "#666" }}>Contract</div>
-    <div>₹{selectedBill?.total_amount}</div>
+    <div>₹{getClientTotal(selectedBill?.client_name)}</div>
   </div>
 
-  <div>
-    <div style={{ fontSize: "12px", color: "#666" }}>Received</div>
-    <div style={{ color: "green" }}>₹{selectedBill?.total_received}</div>
-  </div>
 
-  <div>
-    <div style={{ fontSize: "12px", color: "#666" }}>Pending</div>
-    <div style={{ color: "red" }}>₹{selectedBill?.pending_amount}</div>
-  </div>
-</div>
 
         <hr />
 
@@ -322,10 +262,11 @@ setForm({
           <table className="task-table">
             <thead>
               <tr>
-                <th>Content</th>
-                <th>Description</th>
-                <th>Count</th>
-                <th>Credited</th>
+<th>Content</th>
+<th>Description</th>
+<th>Count</th>
+<th>Credited</th>
+<th>Logged By</th>
               </tr>
             </thead>
             <tbody>
@@ -336,12 +277,14 @@ setForm({
                     <td>{entry.content_type}</td>
                     <td>{entry.content_description || "-"}</td>
                     <td>{entry.content_count}</td>
-                    <td>
-                      ₹{entry.amount_credited}
-                      <div style={{ fontSize: "11px", color: "#888" }}>
-                        {entry.created_at?.split("T")[0]}
-                      </div>
-                    </td>
+<td>
+  ₹{entry.amount_credited}
+  <div style={{ fontSize: "11px", color: "#888" }}>
+    {entry.created_at?.split("T")[0]}
+  </div>
+</td>
+
+<td>{entry.logged_by || "-"}</td>
                   </tr>
                 ))}
             </tbody>
@@ -351,8 +294,7 @@ setForm({
         <div style={{ marginTop: "15px" }}>
           <button onClick={() => setShowDetails(false)}>Close</button>
         </div>
-      </div>
-    </div>,
+      </div>,
     document.body
   )
 }
@@ -362,22 +304,55 @@ setForm({
         createPortal(
           <div className="modal-overlay" onClick={() => setPaymentModal(false)}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <h3>Update Payment</h3>
+<h3>Add Bill Entry</h3>
 
-              <p>Client: {selectedBill?.client_name}</p>
-              <p>Pending: ₹{selectedBill?.pending_amount}</p>
+<select
+  name="client_name"
+  value={form.client_name}
+  onChange={handleChange}
+>
+  <option value="">Select Client</option>
+  {clients.map((c, i) => (
+    <option key={i} value={c.client_name}>{c.client_name}</option>
+  ))}
+</select>
 
-              <input
-                type="number"
-                placeholder="Enter amount"
-                value={paymentAmount}
-                onChange={(e) => setPaymentAmount(e.target.value)}
-              />
+<input
+  name="bill_type"
+  placeholder="Bill Type"
+  onChange={handleChange}
+/>
 
-              <div style={{ display: "flex", gap: "10px" }}>
-                <button onClick={handlePayment}>Save</button>
-                <button onClick={() => setPaymentModal(false)}>Cancel</button>
-              </div>
+<input
+  name="content_type"
+  placeholder="Content"
+  onChange={handleChange}
+/>
+
+<input
+  name="content_count"
+  type="number"
+  placeholder="Content Count"
+  onChange={handleChange}
+/>
+
+<input
+  name="content_description"
+  placeholder="Description"
+  onChange={handleChange}
+/>
+
+<input
+  name="amount_credited"
+  type="number"
+  placeholder="Amount Credited"
+  onChange={handleChange}
+/>
+
+<div style={{ display: "flex", gap: "10px" }}>
+  <button onClick={handleSubmit}>Save</button>
+  <button onClick={() => setPaymentModal(false)}>Cancel</button>
+</div>
             </div>
           </div>,
           document.body
