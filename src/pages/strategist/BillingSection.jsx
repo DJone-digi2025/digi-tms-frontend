@@ -143,8 +143,6 @@ const grouped = Object.values(
 
       {/* HEADER */}
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-
-        )
       </div>
 
       <div className="filter-bar">
