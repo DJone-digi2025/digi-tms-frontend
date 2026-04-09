@@ -13,8 +13,7 @@ const BillingSection = () => {
   const { user } = useAuth();
 
 const isEditableUser =
-  (user?.role === "strategist" && user?.access_type === "full") ||
-  user?.role === "manager";
+  user?.role === "strategist" || user?.role === "manager";
 
   const [showModal, setShowModal] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
