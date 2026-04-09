@@ -110,7 +110,7 @@ const MainLayout = ({ children, setPage, page }) => {
           )}
 
           {/* Full */}
-          {user?.role === "strategist" && access === "full" && (
+          {user?.role === "strategist" && (
             <>
 
               <button className={page === "insights" ? "active" : ""} onClick={() => setPage("insights")}>
@@ -145,33 +145,7 @@ const MainLayout = ({ children, setPage, page }) => {
               </button>
             </>
           )}
-
-          {/* LIMITED */}
-          {user?.role === "strategist" && access === "limited" && (
-            <>
-              <button className={page === "insights" ? "active" : ""} onClick={() => setPage("insights")}>
-                <span className="icon"><LayoutDashboard size={18} /></span>
-                {!collapsed && <span>Insights</span>}
-              </button>
-
-              <button className={page === "tasks" ? "active" : ""} onClick={() => setPage("tasks")}>
-                <span className="icon"><ClipboardList size={18} /></span>
-                {!collapsed && <span>Tasks</span>}
-              </button>
-
-              <button className={page === "completed" ? "active" : ""} onClick={() => setPage("completed")}>
-                <span className="icon"><CheckCircle size={18} /></span>
-                {!collapsed && <span>Completed</span>}
-              </button>
-
-              <button className={page === "plans" ? "active" : ""} onClick={() => setPage("plans")}>
-                <span className="icon"><Folder size={18} /></span>
-                {!collapsed && <span>Plans</span>}
-              </button>
-            </>
-          )}
-
-        </div>
+       </div>
       </div>
 
       {/* 🔥 MAIN */}
