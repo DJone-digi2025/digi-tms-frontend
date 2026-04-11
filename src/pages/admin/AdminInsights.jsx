@@ -70,12 +70,14 @@ const filteredAllTasks = selectedClient
 
   const clientNames = [...new Set(filteredAllTasks.map(t => t.client_name))];
 
-  const clientPending = clientNames.map(client =>
-    filteredCsvTasks.filter(
-      t => t.client_name === client &&
-      !(t.status === "COMPLETED" && t.status === "CANCELLED")
-    ).length
-  );
+const clientPending = clientNames.map(client =>
+  filteredCsvTasks.filter(
+    t =>
+      t.client_name === client &&
+      t.status !== "COMPLETED" &&
+      t.status !== "CANCELLED"
+  ).length
+);
 
   const clientCompleted = clientNames.map(client =>
     filteredAllTasks.filter(
@@ -92,7 +94,7 @@ datasets: [
   };
   const totalClientPending = clientPending.reduce((a, b) => a + b, 0);
   const totalClientCompleted = clientCompleted.reduce((a, b) => a + b, 0);
-  const totalClientTasks = totalClientPending;
+  const totalClientTasks = filteredCsvTasks.length;
 
   /* ===== TEAM ANALYSIS ===== */
   // ✅ Extract valid member names safely
