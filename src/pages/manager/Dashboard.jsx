@@ -52,14 +52,15 @@ const Dashboard = () => {
   });
 
   const [showModal, setShowModal] = useState(false);
-  const [newTask, setNewTask] = useState({
-    client_name: "",
-    content_type: "",
-    custom_content_type: "",
-    assigned_to: "",
-    priority: "",
-    publish_date: ""
-  });
+const [newTask, setNewTask] = useState({
+  client_name: "",
+  content_type: "",
+  custom_content_type: "",
+  assigned_to: "",
+  priority: "",
+  publish_date: "",
+  requires_plan: true   // 🔥 ADD THIS
+});
 
 const handleCreateChange = (e) => {
   const { name, value } = e.target;
@@ -862,6 +863,20 @@ return (
           name="publish_date"
           onChange={handleCreateChange}
         />
+<label style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "10px" }}>
+  <input
+    type="checkbox"
+    name="requires_plan"
+    checked={newTask.requires_plan}
+    onChange={(e) =>
+      setNewTask(prev => ({
+        ...prev,
+        requires_plan: e.target.checked
+      }))
+    }
+  />
+  Requires Plan
+</label>
 
         {previewDate && (
           <div style={{
