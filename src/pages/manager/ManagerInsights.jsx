@@ -44,25 +44,39 @@ const ManagerInsights = () => {
 
   /* ===== CLIENT ANALYSIS ===== */
 
-const baseTasks = tasks.filter(
-  t => t.task_category === taskCategory && t.status !== "CANCELLED"
+// 🔥 CSV ONLY (exclude manual)
+const csvTasks = tasks.filter(
+  t =>
+    t.task_category === taskCategory &&
+    t.status !== "CANCELLED" &&
+    t.is_manual !== true
 );
 
-const filteredClientTasks = selectedClient
-  ? baseTasks.filter(t => t.client_name === selectedClient)
-  : baseTasks;
+// 🔥 ALL TASKS (for completed)
+const allTasksFiltered = tasks.filter(
+  t =>
+    t.task_category === taskCategory &&
+    t.status !== "CANCELLED"
+);
 
-  const clientNames = [...new Set(filteredClientTasks.map(t => t.client_name))];
+const filteredCsvTasks = selectedClient
+  ? csvTasks.filter(t => t.client_name === selectedClient)
+  : csvTasks;
+
+const filteredAllTasks = selectedClient
+  ? allTasksFiltered.filter(t => t.client_name === selectedClient)
+  : allTasksFiltered;
+  const clientNames = [...new Set(filteredAllTasks.map(t => t.client_name))];
 
   const clientPending = clientNames.map(client =>
-    filteredClientTasks.filter(
+    filteredCsvTasks.filter(
       t => t.client_name === client &&
       !(t.status === "COMPLETED" && t.stage === "publish")
     ).length
   );
 
   const clientCompleted = clientNames.map(client =>
-    filteredClientTasks.filter(
+    filteredAllTasks.filter(
       t => t.client_name === client && t.status === "COMPLETED" && t.stage === "publish"
     ).length
   );
