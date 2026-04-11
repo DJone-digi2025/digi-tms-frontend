@@ -32,6 +32,8 @@ const ManagerInsights = () => {
     const fetchData = async () => {
       const allTasks = await getAllTasks();
       const clientData = await getClients();
+
+      console.log("TASK SAMPLE:", allTasks[0]);
       
 
       setTasks(allTasks);
