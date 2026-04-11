@@ -52,26 +52,16 @@ const sorted = filtered
 
     let finalData = sorted;
 
-    if (clientFilter) {
-      finalData = sorted.filter(
-        (t) => t.client_name === clientFilter
-      );
-    }
-
     console.log("FINAL TASKS:", finalData);
 
-    setTasks(finalData);
+    setTasks(sorted);
   };
 
   useEffect(() => {
     fetchTasks();
   }, [user]);
 
-  useEffect(() => {
-  if (clientFilter) {
-    fetchTasks();
-  }
-}, [clientFilter]);
+
 
   const handleChange = (taskId, field, value) => {
     setFormData((prev) => ({
@@ -151,6 +141,10 @@ const sorted = filtered
     }
   };
 
+  const filteredTasks = clientFilter
+  ? tasks.filter(t => t.client_name === clientFilter)
+  : tasks;
+
   return (
     <div className="plans-container">
 
@@ -215,7 +209,7 @@ const sorted = filtered
           </thead>
 
           <tbody>
-            {tasks.map((task) => (
+            {filteredTasks.map((task) => (
               <tr key={task.id}>
                 <td style={{ fontWeight: 600, color: "#111827" }}>{task.task_code || `#${task.id}`}</td>
                 <td>{task.client_name}</td>
