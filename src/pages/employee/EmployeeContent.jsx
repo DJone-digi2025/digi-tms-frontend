@@ -27,22 +27,7 @@ const EmployeeContent = ({ page }) => {
     }));
   };
 
-  const handleSave = async (taskId) => {
-    try {
-      const comment = comments[taskId] || "";
-
-      if (!comment.trim()) {
-        return alert("Reason required for delay");  // 🔥 ADD THIS
-      }
-
-      await saveComment(taskId, comment, user.role);
-      
-    } catch (err) {
-      console.error(err);
-      alert("Save failed");
-    }
-  };
-
+  
 const handleSubmit = async (taskId) => {
   try {
     const task = tasks.find(t => t.id === taskId);
@@ -52,6 +37,11 @@ const handleSubmit = async (taskId) => {
     // 🔥 get latest input value directly
     const input = document.getElementById(`comment-${taskId}`);
     const currentValue = input?.value?.trim();
+
+    // 🔥 SAVE COMMENT FIRST (if exists)
+    if (currentValue) {
+      await saveComment(taskId, currentValue, user.role);
+    }
 
     const today = new Date();
     const assignDate = new Date(task.assign_date);
@@ -63,7 +53,7 @@ const handleSubmit = async (taskId) => {
 
     // ✅ strategist: no delay validation
     if (user.role === "strategist") {
-      await submitTask(taskId);
+      await submitTask(taskId,currentValue);
       fetchTasks();
       return;
     }
@@ -274,7 +264,6 @@ useEffect(() => {
                 userRole={user.role}
                 comments={comments}
                 onCommentChange={handleCommentChange}
-                onSave={handleSave}
                 onSubmit={handleSubmit}
               />
             )}
@@ -310,7 +299,6 @@ useEffect(() => {
               userRole={user.role}
               comments={comments}
               onCommentChange={handleCommentChange}
-              onSave={handleSave}
               onSubmit={handleSubmit}
               onPublish={handlePublish}
             />

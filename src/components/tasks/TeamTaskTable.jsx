@@ -5,7 +5,6 @@ const TeamTaskTable = ({
   userRole,
   comments = {},
   onCommentChange,
-  onSave,
   onSubmit,
   onPublish
 }) => {
@@ -159,12 +158,7 @@ const TeamTaskTable = ({
 
     {(userRole === "designer" || userRole === "marketing") && (
       <>
-        <button
-          className="btn-save"
-          onClick={() => onSave?.(task.id)}
-        >
-          Save
-        </button>
+
 
         <button
           className="btn-submit"
@@ -177,13 +171,6 @@ const TeamTaskTable = ({
 
     {userRole === "strategist" && (
       <>
-        <button
-          className="btn-save"
-          onClick={() => onSave?.(task.id)}
-        >
-          Save
-        </button>
-
         <button
           className="btn-submit"
           onClick={() => onSubmit?.(task.id)}
