@@ -260,31 +260,6 @@ useEffect(() => {
   return (
     <div className="page-section">
 
-      {/* 🔵 NORMAL EMPLOYEE */}
-      {!isStrategist && (
-        <>
-          <EmployeeInsights tasks={tasks} user={user} />
-
-          <div className="tab-container">
-            <div className="tabs">
-              <div
-                className={`tab ${tab === "active" ? "active" : ""}`}
-                onClick={() => setTab("active")}
-              >
-                Active Tasks
-              </div>
-
-              <div
-                className={`tab ${tab === "completed" ? "active" : ""}`}
-                onClick={() => setTab("completed")}
-              >
-                Completed Tasks
-              </div>
-
-              <div className={`slider ${tab}`} />
-            </div>
-          </div>
-
 <div className="filter-bar">
 
   <input
@@ -317,6 +292,33 @@ useEffect(() => {
   </div>
 
 </div>
+
+      {/* 🔵 NORMAL EMPLOYEE */}
+      {!isStrategist && (
+        <>
+          <EmployeeInsights tasks={tasks} user={user} />
+
+          <div className="tab-container">
+            <div className="tabs">
+              <div
+                className={`tab ${tab === "active" ? "active" : ""}`}
+                onClick={() => setTab("active")}
+              >
+                Active Tasks
+              </div>
+
+              <div
+                className={`tab ${tab === "completed" ? "active" : ""}`}
+                onClick={() => setTab("completed")}
+              >
+                Completed Tasks
+              </div>
+
+              <div className={`slider ${tab}`} />
+            </div>
+          </div>
+
+
 
           <div className="section-content">
             {tab === "active" && (
