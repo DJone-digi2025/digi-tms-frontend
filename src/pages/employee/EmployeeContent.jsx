@@ -51,7 +51,7 @@ const handleSubmit = async (taskId) => {
 
     const comment = comments[taskId] || "";
     const existingReason = task.reason_for_delay || "";
-    const finalComment = comment || existingReason;
+    const finalComment = comments[taskId];
 
     const today = new Date();
     const assignDate = new Date(task.assign_date);
@@ -68,8 +68,8 @@ const handleSubmit = async (taskId) => {
     }
 
     if (user.role !== "strategist" && isDelayed) {
-      if (!finalComment) {
-        return alert("Reason required for delay");
+      if (!comments[taskId]?.trim()) {
+        return alert("Delay reason required");
       }
 
       if (comment) {
