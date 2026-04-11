@@ -36,7 +36,7 @@ const EmployeeContent = ({ page }) => {
       }
 
       await saveComment(taskId, comment, user.role);
-      fetchTasks();
+      
     } catch (err) {
       console.error(err);
       alert("Save failed");
@@ -59,7 +59,7 @@ const handleSubmit = async (taskId) => {
     today.setHours(0,0,0,0);
     assignDate.setHours(0,0,0,0);
 
-    const isDelayed = today > assignDate;
+    const isDelayed = !task.completed_at && today > assignDate;
 
     if (user.role === "strategist") {
       await submitTask(taskId);
@@ -67,7 +67,7 @@ const handleSubmit = async (taskId) => {
       return;
     }
 
-    if (isDelayed) {
+    if (user.role !== "strategist" && isDelayed) {
       if (!finalComment) {
         return alert("Reason required for delay");
       }
