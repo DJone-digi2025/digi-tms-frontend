@@ -38,7 +38,7 @@ const PlansSection = () => {
     let filtered = allTasks.filter(
   t =>
     t.task_category !== "marketing" &&
-    t.status !== "REMOVED"
+    t.plan_removed !== true
 );
 
 
