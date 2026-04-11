@@ -71,7 +71,7 @@ const filteredAllTasks = selectedClient
   const clientNames = [...new Set(filteredAllTasks.map(t => t.client_name))];
 
   const clientPending = clientNames.map(client =>
-    filteredClientTasks.filter(
+    filteredCsvTasks.filter(
       t => t.client_name === client &&
       !(t.status === "COMPLETED" && t.status === "CANCELLED")
     ).length
