@@ -34,9 +34,7 @@ const EmployeeInsights = () => {
           my = await getEmployeeAllTasks(user.id);
         }
         // 🔥 CSV ONLY
-        const csvTasks = allTasks.filter(
-          t => t.is_manual === false
-        );
+
 
 // 🔥 ALL TASKS (already have allTasks)
 
@@ -68,6 +66,11 @@ const EmployeeInsights = () => {
     if (user?.id) fetchData();
   }, [user]);
 
+// 🔥 CSV ONLY
+const csvTasks = allTasks.filter(
+  t => t.is_manual === false
+);
+
   /* ================= CLIENT DATA (NO DATE FILTER) ================= */
 
   const clients = [...new Set(allTasks.map(t => t.client_name))];
@@ -83,7 +86,7 @@ const filteredAllTasks = selectedClient
   const clientNames = [...new Set(filteredAllTasks.map(t => t.client_name))];
 
   const clientPending = clientNames.map(client =>
-    filteredClientTasks.filter(
+    filteredCsvTasks.filter(
       t =>
         t.client_name === client &&
         !(t.status === "COMPLETED" && t.status === "CANCELLED")

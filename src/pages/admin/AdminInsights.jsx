@@ -104,7 +104,7 @@ const members = [
 ];
 
   // ✅ Filter tasks based on selected member
-const filteredTeamTasks = baseTasks.filter(t => {
+const filteredTeamTasks = allTasksFiltered.filter(t => {
   const memberMatch = selectedMember
     ? t.team_members?.name === selectedMember
     : true;
