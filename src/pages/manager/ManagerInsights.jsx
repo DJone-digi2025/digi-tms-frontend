@@ -90,7 +90,7 @@ datasets: [
   };
   const totalClientPending = clientPending.reduce((a, b) => a + b, 0);
   const totalClientCompleted = clientCompleted.reduce((a, b) => a + b, 0);
-  const totalClientTasks = totalClientPending + totalClientCompleted;
+  const totalClientTasks = totalClientPending;
 
   /* ===== TEAM ANALYSIS ===== */
   // ✅ Extract valid member names safely
