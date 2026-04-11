@@ -285,33 +285,38 @@ useEffect(() => {
             </div>
           </div>
 
-          <div style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
-            <input
-              placeholder="Filter by client"
-              value={clientFilter}
-              onChange={(e) => setClientFilter(e.target.value)}
-            />
-            <input
-              placeholder="Filter by content"
-              value={contentFilter}
-              onChange={(e) => setContentFilter(e.target.value)}
-            />
+<div className="filter-bar">
 
-            <input
-              type="date"
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-            />
+  <input
+    placeholder="Filter by client"
+    value={clientFilter}
+    onChange={(e) => setClientFilter(e.target.value)}
+  />
 
-            <label style={{ marginLeft: "10px" }}>
-              <input
-                type="checkbox"
-                checked={showPendingBefore}
-                onChange={(e) => setShowPendingBefore(e.target.checked)}
-              />
-              Show Pending Before
-            </label>
-          </div>
+  <input
+    placeholder="Filter by content"
+    value={contentFilter}
+    onChange={(e) => setContentFilter(e.target.value)}
+  />
+
+  <div className="date-filter">
+    <input
+      type="date"
+      value={selectedDate}
+      onChange={(e) => setSelectedDate(e.target.value)}
+    />
+
+    <label className="pending-toggle">
+      <input
+        type="checkbox"
+        checked={showPendingBefore}
+        onChange={(e) => setShowPendingBefore(e.target.checked)}
+      />
+      Pending Before
+    </label>
+  </div>
+
+</div>
 
           <div className="section-content">
             {tab === "active" && (
