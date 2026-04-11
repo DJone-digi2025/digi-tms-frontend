@@ -46,25 +46,39 @@ const AdminInsights = () => {
 
   /* ===== CLIENT ANALYSIS ===== */
 
-const baseTasks = tasks.filter(
-  t => t.task_category === taskCategory && t.status !== "CANCELLED"
+// 🔥 CSV ONLY
+const csvTasks = tasks.filter(
+  t =>
+    t.task_category === taskCategory &&
+    t.status !== "CANCELLED" &&
+    t.is_manual === false
 );
 
-const filteredClientTasks = selectedClient
-  ? baseTasks.filter(t => t.client_name === selectedClient)
-  : baseTasks;
+// 🔥 ALL TASKS
+const allTasksFiltered = tasks.filter(
+  t =>
+    t.task_category === taskCategory &&
+    t.status !== "CANCELLED"
+);
+const filteredCsvTasks = selectedClient
+  ? csvTasks.filter(t => t.client_name === selectedClient)
+  : csvTasks;
 
-  const clientNames = [...new Set(filteredClientTasks.map(t => t.client_name))];
+const filteredAllTasks = selectedClient
+  ? allTasksFiltered.filter(t => t.client_name === selectedClient)
+  : allTasksFiltered;
+
+  const clientNames = [...new Set(filteredAllTasks.map(t => t.client_name))];
 
   const clientPending = clientNames.map(client =>
     filteredClientTasks.filter(
       t => t.client_name === client &&
-      !(t.status === "COMPLETED" && t.stage === "publish")
+      !(t.status === "COMPLETED" && t.status === "CANCELLED")
     ).length
   );
 
   const clientCompleted = clientNames.map(client =>
-    filteredClientTasks.filter(
+    filteredAllTasks.filter(
       t => t.client_name === client && t.status === "COMPLETED" && t.stage === "publish"
     ).length
   );
@@ -78,7 +92,7 @@ datasets: [
   };
   const totalClientPending = clientPending.reduce((a, b) => a + b, 0);
   const totalClientCompleted = clientCompleted.reduce((a, b) => a + b, 0);
-  const totalClientTasks = totalClientPending + totalClientCompleted;
+  const totalClientTasks = totalClientPending;
 
   /* ===== TEAM ANALYSIS ===== */
   // ✅ Extract valid member names safely

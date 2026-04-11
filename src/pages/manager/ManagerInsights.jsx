@@ -73,7 +73,7 @@ const filteredAllTasks = selectedClient
   const clientPending = clientNames.map(client =>
     filteredCsvTasks.filter(
       t => t.client_name === client &&
-      !(t.status === "COMPLETED" && t.stage === "CANCELLED")
+      !(t.status === "COMPLETED" && t.status === "CANCELLED")
     ).length
   );
 

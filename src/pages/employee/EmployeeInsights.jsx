@@ -33,6 +33,12 @@ const EmployeeInsights = () => {
         } else {
           my = await getEmployeeAllTasks(user.id);
         }
+        // 🔥 CSV ONLY
+        const csvTasks = allTasks.filter(
+          t => t.is_manual === false
+        );
+
+// 🔥 ALL TASKS (already have allTasks)
 
         const all = await getAllTasks();
 
@@ -66,22 +72,26 @@ const EmployeeInsights = () => {
 
   const clients = [...new Set(allTasks.map(t => t.client_name))];
 
-  const filteredClientTasks = selectedClient
-    ? allTasks.filter(t => t.client_name === selectedClient)
-    : allTasks;
+const filteredCsvTasks = selectedClient
+  ? csvTasks.filter(t => t.client_name === selectedClient)
+  : csvTasks;
 
-  const clientNames = [...new Set(filteredClientTasks.map(t => t.client_name))];
+const filteredAllTasks = selectedClient
+  ? allTasks.filter(t => t.client_name === selectedClient)
+  : allTasks;
+
+  const clientNames = [...new Set(filteredAllTasks.map(t => t.client_name))];
 
   const clientPending = clientNames.map(client =>
     filteredClientTasks.filter(
       t =>
         t.client_name === client &&
-        !(t.status === "COMPLETED" && t.stage === "publish")
+        !(t.status === "COMPLETED" && t.status === "CANCELLED")
     ).length
   );
 
   const clientCompleted = clientNames.map(client =>
-    filteredClientTasks.filter(
+    filteredAllTasks.filter(
       t =>
         t.client_name === client &&
         t.status === "COMPLETED" &&
@@ -89,7 +99,7 @@ const EmployeeInsights = () => {
     ).length
   );
 
-  const totalClientTasks = filteredClientTasks.length;
+  const totalClientTasks = clientPending.reduce((a, b) => a + b, 0);
   const totalClientPending = clientPending.reduce((a, b) => a + b, 0);
   const totalClientCompleted = clientCompleted.reduce((a, b) => a + b, 0);
 
