@@ -49,9 +49,9 @@ const handleSubmit = async (taskId) => {
 
     console.log("🔥 HANDLE SUBMIT CALLED:", taskId);
 
-    const comment = comments[taskId] || "";
-    const existingReason = task.reason_for_delay || "";
-    const finalComment = comments[taskId];
+    // 🔥 get latest input value directly
+    const input = document.getElementById(`comment-${taskId}`);
+    const currentValue = input?.value?.trim();
 
     const today = new Date();
     const assignDate = new Date(task.assign_date);
@@ -61,27 +61,25 @@ const handleSubmit = async (taskId) => {
 
     const isDelayed = !task.completed_at && today > assignDate;
 
+    // ✅ strategist: no delay validation
     if (user.role === "strategist") {
       await submitTask(taskId);
       fetchTasks();
       return;
     }
 
-    if (user.role !== "strategist" && isDelayed) {
-      if (!comments[taskId]?.trim()) {
+    // ✅ delay validation only for non-strategist
+    if (isDelayed) {
+      if (!currentValue) {
         return alert("Delay reason required");
       }
 
-      if (comment) {
-        await saveComment(taskId, comment, user.role);
-      }
-
-      await submitTask(taskId, finalComment);
+      await submitTask(taskId, currentValue);
       fetchTasks();
       return;
     }
 
-    // 🔥 ✅ THIS WAS MISSING
+    // ✅ normal submit
     await submitTask(taskId);
     fetchTasks();
 

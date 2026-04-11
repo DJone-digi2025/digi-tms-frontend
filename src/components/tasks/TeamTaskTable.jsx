@@ -87,12 +87,11 @@ const TeamTaskTable = ({
       </td>
 
       <td>
-        <textarea
-          value={comments[task.id] ?? ""}
-          onChange={(e) =>
-            onCommentChange(task.id, e.target.value)
-          }
-        />
+<textarea
+  id={`comment-${task.id}`}
+  value={comments[task.id] || ""}
+  onChange={(e) => onCommentChange(task.id, e.target.value)}
+/>
       </td>
     </>
   ) : (
