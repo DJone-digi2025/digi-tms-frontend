@@ -169,25 +169,25 @@ const TeamTaskTable = ({
       </>
     )}
 
-    {userRole === "strategist" && (
-      <>
-        <button
-          className="btn-submit"
-          onClick={() => onSubmit?.(task.id)}
-        >
-          Submit
-        </button>
-
-        {task.ready_for_publish && (
-  <button
-    className="btn btn-green"
-    onClick={() => onPublish(task.id)}
-  >
-    Publish
-  </button>
-)}
-      </>
+{userRole === "strategist" && (
+  <>
+    {task.ready_for_publish ? (
+      <button
+        className="btn btn-green"
+        onClick={() => onPublish(task.id)}
+      >
+        Publish
+      </button>
+    ) : (
+      <button
+        className="btn-submit"
+        onClick={() => onSubmit?.(task.id)}
+      >
+        Submit
+      </button>
     )}
+  </>
+)}
 
   </div>
 </td>
