@@ -339,3 +339,8 @@ export const setPriorityOverride = async (taskId, priority) => {
   );
   return res.data;
 };
+
+export const removePlan = async (taskId) => {
+  const res = await axios.patch(`${BASE_URL}/remove-plan/${taskId}`);
+  return res.data;
+};

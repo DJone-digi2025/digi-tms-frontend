@@ -8,6 +8,7 @@ import {
 import { useAuth } from "../../context/AuthContext";
 import "./plans.css";
 import { uploadPlanFile } from "../../api/taskApi";
+import { removePlan } from "../../api/taskApi";
 
 const PlansSection = () => {
   const { user } = useAuth();
@@ -34,7 +35,11 @@ const PlansSection = () => {
   console.log("USER ID:", user.id);
   console.log("TASK STRATEGIST IDS:", allTasks.map(t => t.strategist_id));
 
-    let filtered = allTasks.filter(t => t.task_category !== "marketing");
+    let filtered = allTasks.filter(
+  t =>
+    t.task_category !== "marketing" &&
+    t.status !== "REMOVED"
+);
 
 
 const sorted = filtered
@@ -115,6 +120,16 @@ const sorted = filtered
       alert("Save failed");
     }
   };
+
+const handleRemove = async (taskId) => {
+  try {
+    await removePlan(taskId);
+    fetchTasks();
+  } catch (err) {
+    console.error(err);
+    alert("Remove failed");
+  }
+};
 
   const handleUpload = async () => {
     if (!file) return alert("Select CSV file");
@@ -272,12 +287,21 @@ const sorted = filtered
                 </td>
 
                 <td>
-                  <button
-                    className="btn btn-green"
-                    onClick={() => handleSave(task.id)}
-                  >
-                    Save
-                  </button>
+<div style={{ display: "flex", gap: "5px" }}>
+  <button
+    className="btn btn-green"
+    onClick={() => handleSave(task.id)}
+  >
+    Save
+  </button>
+
+  <button
+    className="btn btn-red"
+    onClick={() => handleRemove(task.id)}
+  >
+    Remove
+  </button>
+</div>
                 </td>
               </tr>
             ))}
