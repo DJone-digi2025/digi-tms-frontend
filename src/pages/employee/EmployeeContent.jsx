@@ -19,6 +19,8 @@ const EmployeeContent = ({ page }) => {
   const [comments, setComments] = useState({});
   const [clientFilter, setClientFilter] = useState("");
   const [contentFilter, setContentFilter] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [showPendingBefore, setShowPendingBefore] = useState(false);
 
   const handleCommentChange = (taskId, value) => {
     setComments((prev) => ({
@@ -149,6 +151,34 @@ setAllTasks(
   useEffect(() => {
     let filtered = allTasks;
 
+    // 🔥 DATE FILTER
+    if (selectedDate) {
+      const selected = new Date(selectedDate);
+      selected.setHours(0,0,0,0);
+
+      filtered = filtered.filter(task => {
+        const taskDate = new Date(task.assign_date);
+        taskDate.setHours(0,0,0,0);
+
+        // ✅ Exact date
+        if (taskDate.getTime() === selected.getTime()) {
+          return true;
+        }
+
+        // ✅ Previous pending (if enabled)
+        if (
+          showPendingBefore &&
+          taskDate < selected &&
+          task.status !== "COMPLETED" &&
+          task.status !== "CANCELLED"
+        ) {
+          return true;
+        }
+
+        return false;
+      });
+    }
+
       // 🔥 STRATEGIST FILTER
 if (user.role === "strategist") {
   filtered = filtered.filter(task => {
@@ -266,6 +296,21 @@ useEffect(() => {
               value={contentFilter}
               onChange={(e) => setContentFilter(e.target.value)}
             />
+
+            <input
+              type="date"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+            />
+
+            <label style={{ marginLeft: "10px" }}>
+              <input
+                type="checkbox"
+                checked={showPendingBefore}
+                onChange={(e) => setShowPendingBefore(e.target.checked)}
+              />
+              Show Pending Before
+            </label>
           </div>
 
           <div className="section-content">
