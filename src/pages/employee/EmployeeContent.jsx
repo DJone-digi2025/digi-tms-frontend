@@ -79,10 +79,21 @@ const handleSubmit = async (taskId) => {
   }
 };
 
-  const handlePublish = async (taskId) => {
+const handlePublish = async (taskId) => {
   try {
+    const input = document.getElementById(`comment-${taskId}`);
+    const comment = input?.value?.trim();
+
+    // 🔥 save comment first (if exists)
+    if (comment) {
+      await saveComment(taskId, comment, user.role);
+    }
+
+    // 🔥 then publish
     await publishTask(taskId);
+
     fetchTasks();
+
   } catch (err) {
     console.error(err);
     alert("Publish failed");
