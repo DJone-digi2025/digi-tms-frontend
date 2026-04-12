@@ -58,11 +58,8 @@ const ManagerTaskTable = ({
   ) : (
     <>
       <th>Task Code</th>
-      <th>Client</th>
-      <th>Content</th>
       <th>Assigned To</th>
       <th>Assigned Date</th>
-      <th>Publish Date</th>
       <th>Status</th>
       <th>Stage</th>
 
@@ -138,13 +135,7 @@ const ManagerTaskTable = ({
       <td style={{ fontWeight: 600, color: "#111827" }}>
         {task.task_code || `#${task.id}`}
       </td>
-
-      <td>{task.client_name}</td>
-
-      <td style={{ fontWeight: 500 }}>
-        {task.content_type}
-      </td>
-
+  
       <td>
         {task.stage === "publish"
           ? task.strategist?.name || "-"
@@ -154,12 +145,6 @@ const ManagerTaskTable = ({
       <td>
         {task.assign_date
           ? new Date(task.assign_date).toLocaleDateString()
-          : "-"}
-      </td>
-
-      <td>
-        {task.publish_date
-          ? new Date(task.publish_date).toLocaleDateString()
           : "-"}
       </td>
 
