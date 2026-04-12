@@ -1,5 +1,5 @@
 import "./TaskTable.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const TeamTaskTable = ({
   tasks,
@@ -31,20 +31,45 @@ const handleUpload = async (e, taskId) => {
 
     const data = await res.json();
 
-    if (data.url) {
-      setUploadedFiles(prev => ({
-        ...prev,
-        [taskId]: data.url
-      }));
-    } else {
-      alert("Upload failed");
-    }
+if (data.url) {
+  setUploadedFiles(prev => ({
+    ...prev,
+    [taskId]: data.url
+  }));
+
+  await fetch("https://digi-tms-backend.onrender.com/save-output", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      task_id: taskId,
+      output_file: data.url
+    })
+  });
+
+} else {
+  alert("Upload failed");
+}
 
   } catch (err) {
     console.error(err);
     alert("Upload error");
   }
 };
+
+useEffect(() => {
+  const initialFiles = {};
+
+  tasks.forEach(task => {
+    if (task.output_file) {
+      initialFiles[task.id] = task.output_file;
+    }
+  });
+
+  setUploadedFiles(initialFiles);
+}, [tasks]);
+
 
   const isStrategist = userRole === "strategist";
 
