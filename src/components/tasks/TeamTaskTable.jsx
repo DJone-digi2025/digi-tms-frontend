@@ -244,30 +244,15 @@ useEffect(() => {
 </label>
 
   {/* If file exists */}
-  {uploadedFiles[task.id] && (
-    <>
-      <a
-        href={uploadedFiles[task.id]}
-        target="_blank"
-        className="view-btn"
-      >
-        View
-      </a>
-
-      <button
-        className="remove-btn"
-        onClick={() => {
-          setUploadedFiles(prev => {
-            const updated = { ...prev };
-            delete updated[task.id];
-            return updated;
-          });
-        }}
-      >
-        Remove
-      </button>
-    </>
-  )}
+{uploadedFiles[task.id] && (
+  <a
+    href={uploadedFiles[task.id]}
+    target="_blank"
+    className="view-btn"
+  >
+    View
+  </a>
+)}
 
 </div>
 

@@ -324,11 +324,3 @@ textarea:focus {
   text-decoration: none;
 }
 
-.remove-btn {
-  background: #ef4444;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
