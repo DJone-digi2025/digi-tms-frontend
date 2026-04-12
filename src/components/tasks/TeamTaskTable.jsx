@@ -152,7 +152,7 @@ const TeamTaskTable = ({
     </>
   )}
 
-              {/* ACTIONS */}
+  {/* ACTIONS */}
 <td>
   <div style={{ display: "flex", gap: "5px" }}>
 
@@ -166,7 +166,30 @@ const TeamTaskTable = ({
         >
           Submit
         </button>
+<input type="file" onChange={async (e) => {
+  const file = e.target.files[0];
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const res = await fetch("https://digi-tms-backend.onrender.com/upload-output", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+    console.log("UPLOAD RESULT:", data);
+
+    alert(data.url);
+
+  } catch (err) {
+    console.error(err);
+    alert("Upload failed");
+  }
+}} />
       </>
+
     )}
 
 {userRole === "strategist" && (
