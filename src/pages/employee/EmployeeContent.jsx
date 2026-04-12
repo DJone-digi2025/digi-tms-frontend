@@ -22,12 +22,30 @@ const EmployeeContent = ({ page }) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [showPendingBefore, setShowPendingBefore] = useState(false);
 
-  const handleCommentChange = (taskId, value) => {
-    setComments((prev) => ({
-      ...prev,
-      [taskId]: value
-    }));
-  };
+const handleCommentChange = async (taskId, value) => {
+
+  // ✅ 1. update UI instantly
+  setComments((prev) => ({
+    ...prev,
+    [taskId]: value
+  }));
+
+  // ✅ 2. save to DB (IMPORTANT)
+  try {
+    await fetch(`https://digi-tms-backend.onrender.com/tasks/${taskId}/save-reason`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        comment: value,
+        user_role: user.role   // 🔥 IMPORTANT (dynamic)
+      })
+    });
+  } catch (err) {
+    console.error("Comment save failed", err);
+  }
+};
 
   
 const handleSubmit = async (taskId) => {
@@ -242,15 +260,27 @@ useEffect(() => {
   setComments(prev => {
     const updated = { ...prev };
 
-    tasks.forEach(task => {
-      if (
-        user.role === "designer" &&
-        task.reason_for_delay &&
-        !updated[task.id]
-      ) {
-        updated[task.id] = task.reason_for_delay;
-      }
-    });
+tasks.forEach(task => {
+
+  // ✅ designer
+  if (
+    user.role === "designer" &&
+    task.reason_for_delay &&
+    !updated[task.id]
+  ) {
+    updated[task.id] = task.reason_for_delay;
+  }
+
+  // ✅ strategist
+  if (
+    user.role === "strategist" &&
+    task.strategist_comment &&
+    !updated[task.id]
+  ) {
+    updated[task.id] = task.strategist_comment;
+  }
+
+});
 
     return updated;
   });
