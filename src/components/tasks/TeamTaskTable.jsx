@@ -161,13 +161,6 @@ useEffect(() => {
   />
 </td>
 
-      <td>
-<textarea
-  id={`comment-${task.id}`}
-  value={comments[task.id] || ""}
-  onChange={(e) => onCommentChange(task.id, e.target.value)}
-/>
-      </td>
     </>
   ) : (
     <>
