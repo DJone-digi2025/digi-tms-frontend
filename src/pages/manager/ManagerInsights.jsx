@@ -70,6 +70,12 @@ const filteredAllTasks = selectedClient
   : allTasksFiltered;
   const clientNames = [...new Set(filteredAllTasks.map(t => t.client_name))];
 
+const clientTotal = clientNames.map(client =>
+  filteredCsvTasks.filter(
+    t => t.client_name === client
+  ).length
+);
+
 const clientPending = clientNames.map(client =>
   filteredCsvTasks.filter(
     t =>
@@ -87,7 +93,7 @@ const clientPending = clientNames.map(client =>
   const clientData = {
     labels: clientNames,
 datasets: [
-  { label: "Pending", data: clientPending, backgroundColor: "#6366f1" },
+  { label: "Total", data: clientTotal, backgroundColor: "#6366f1" },
   { label: "Completed", data: clientCompleted, backgroundColor: "#22c55e" }
 ]
   };
