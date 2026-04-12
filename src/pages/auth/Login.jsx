@@ -6,6 +6,8 @@ import "./login.css";
 
 const Login = () => {
   const { login, user, loading } = useAuth();
+  const [submitting, setSubmitting] = useState(false);
+  const [showWakeMsg, setShowWakeMsg] = useState(false);
 
   const [form, setForm] = useState({
     email: "",
@@ -22,18 +24,28 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError("");
+  setSubmitting(true);
+  setShowWakeMsg(false);
 
-    try {
-      const data = await loginUser(form);
-      login(data);
-      navigate("/dashboard");
-    } catch (err) {
-      setError(err.response?.data?.error || "Login failed");
-    }
-  };
+  // ⏱ show “waking server” after 5s
+  const timer = setTimeout(() => {
+    setShowWakeMsg(true);
+  }, 5000);
+
+  try {
+    const data = await loginUser(form);
+    login(data);
+    navigate("/dashboard");
+  } catch (err) {
+    setError(err.response?.data?.error || "Login failed");
+  } finally {
+    clearTimeout(timer);
+    setSubmitting(false);
+  }
+};
 
   useEffect(() => {
     if (!loading && user) {
@@ -97,13 +109,30 @@ const Login = () => {
 
           {error && <div className="error-text">{error}</div>}
 
-          <button type="submit" className="login-button">
-            Login
-          </button>
+<button
+  type="submit"
+  className="login-button"
+  disabled={submitting}
+>
+  {submitting ? "Logging in..." : "Login"}
+</button>
 
         </form>
 
       </div>
+{submitting && (
+  <div className="login-overlay">
+    <div className="loader-box">
+      <div className="spinner"></div>
+
+      {!showWakeMsg ? (
+        <p>Authenticating...</p>
+      ) : (
+        <p>Waking server... this may take up to 1 minute</p>
+      )}
+    </div>
+  </div>
+)}
     </div>
   );
 };
