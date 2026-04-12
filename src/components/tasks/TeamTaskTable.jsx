@@ -158,14 +158,6 @@ const TeamTaskTable = ({
 
     {(userRole === "designer" || userRole === "marketing") && (
       <>
-
-
-        <button
-          className="btn-submit"
-          onClick={() => onSubmit?.(task.id)}
-        >
-          Submit
-        </button>
 <input type="file" onChange={async (e) => {
   const file = e.target.files[0];
 
@@ -188,6 +180,14 @@ const TeamTaskTable = ({
     alert("Upload failed");
   }
 }} />
+
+        <button
+          className="btn-submit"
+          onClick={() => onSubmit?.(task.id)}
+        >
+          Submit
+        </button>
+
       </>
 
     )}
