@@ -149,13 +149,17 @@ useEffect(() => {
         </span>
       </td>
 
-      <td style={{ color: "red" }}>
-        {task.strategist_comment || "—"}
-      </td>
+<td style={{ color: "#2563eb" }}>
+  {task.manager_comment || "—"}
+</td>
 
-      <td style={{ color: "#2563eb" }}>
-        {task.manager_comment || "—"}
-      </td>
+<td>
+  <textarea
+    id={`comment-${task.id}`}
+    value={comments[task.id] || ""}
+    onChange={(e) => onCommentChange(task.id, e.target.value)}
+  />
+</td>
 
       <td>
 <textarea
