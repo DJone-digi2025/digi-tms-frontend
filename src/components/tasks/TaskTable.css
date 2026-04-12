@@ -4,8 +4,14 @@
   background: #ffffff;
   border-radius: 12px;
   border: 1px solid #e5e7eb;
-  overflow: visible;
+
+  height: calc(100vh - 220px); /* 🔥 adjust later */
+  overflow-y: auto;
   overflow-x: auto;
+}
+
+.table-container {
+  scrollbar-width: thin;
 }
 
 /* ===== TABLE ===== */
@@ -25,6 +31,19 @@
   color: #6b7280;
 
   border-bottom: 1px solid #e5e7eb;
+}
+
+.task-table th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #f9fafb;
+}
+
+.task-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 6;
 }
 
 /* ===== ROWS ===== */
