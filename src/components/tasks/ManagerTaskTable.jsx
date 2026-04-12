@@ -75,6 +75,7 @@ const ManagerTaskTable = ({
 
       {page === "evaluation" && (
         <>
+          <th>Priority</th>        
           <th>Team Comment</th>
           <th>Manager Comment</th>
           <th>Actions</th>
@@ -230,6 +231,16 @@ const ManagerTaskTable = ({
                 {/* EVALUATION PAGE */}
                 {page === "evaluation" && (
                   <>
+<td>
+  <span
+    className={`priority ${
+      (task.priority_override || task.priority)?.toLowerCase()
+    }`}
+  >
+    {task.priority_override || task.priority || "-"}
+  </span>
+</td>
+
 <td style={{ color: "#374151", fontWeight: 500 }}>
   {task.strategist_comment || task.reason_for_delay || "-"}
 </td>
