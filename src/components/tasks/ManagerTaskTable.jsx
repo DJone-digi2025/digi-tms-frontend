@@ -75,6 +75,7 @@ const ManagerTaskTable = ({
           <th>Priority</th>        
           <th>Team Comment</th>
           <th>Manager Comment</th>
+          <th>Plan</th>
           <th>Actions</th>
         </>
       )}
@@ -230,17 +231,53 @@ const ManagerTaskTable = ({
   {task.strategist_comment || task.reason_for_delay || "-"}
 </td>
 
-                    <td>
-                      <textarea
-                        value={(comments || {})[task.id] ?? ""}
-                        onChange={(e) =>
-                          onCommentChange(task.id, e.target.value)
-                        }
-                        placeholder="Add comment..."
-                      />
-                    </td>
+<td>
+  <textarea
+    value={(comments || {})[task.id] ?? ""}
+    onChange={(e) =>
+      onCommentChange(task.id, e.target.value)
+    }
+    placeholder="Add comment..."
+  />
+</td>
 
-                    <td style={{ display: "flex", gap: "6px" }}>
+{/* ✅ INSERT PLAN COLUMN HERE */}
+<td>
+  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+
+    <div style={{ display: "flex", gap: "6px" }}>
+      {task.plan_link && (
+        <a href={task.plan_link} target="_blank" rel="noreferrer">
+          🔗 Link
+        </a>
+      )}
+
+      {task.plan_file && (
+        <a href={task.plan_file} target="_blank" rel="noreferrer">
+          📁 File
+        </a>
+      )}
+    </div>
+
+    <div
+      style={{
+        fontSize: "12px",
+        color: "#6b7280",
+        maxWidth: "180px",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap"
+      }}
+      title={task.description || ""}
+    >
+      {task.description || "-"}
+    </div>
+
+  </div>
+</td>
+
+<td style={{ display: "flex", gap: "6px" }}>
+
                       <button className="btn btn-green" onClick={() => onApprove(task.id)}>
                         Complete
                       </button>
