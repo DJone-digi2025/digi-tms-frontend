@@ -76,6 +76,7 @@ const ManagerTaskTable = ({
           <th>Team Comment</th>
           <th>Manager Comment</th>
           <th>Plan</th>
+          <th>Output</th>
           <th>Actions</th>
         </>
       )}
@@ -274,6 +275,22 @@ const ManagerTaskTable = ({
     </div>
 
   </div>
+</td>
+
+{/* ✅ OUTPUT COLUMN */}
+<td>
+  {task.output_file ? (
+    <a
+      href={task.output_file}
+      target="_blank"
+      rel="noreferrer"
+      style={{ color: "#2563eb", fontWeight: 500 }}
+    >
+      View
+    </a>
+  ) : (
+    "-"
+  )}
 </td>
 
 <td style={{ display: "flex", gap: "6px" }}>
