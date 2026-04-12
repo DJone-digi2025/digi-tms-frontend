@@ -17,7 +17,8 @@
 /* ===== TABLE ===== */
 .task-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;   /* 🔥 KEY FIX */
+  border-spacing: 0;
 }
 
 /* ===== HEADER ===== */
@@ -40,10 +41,8 @@
   background: #f9fafb;
 }
 
-.task-table thead {
-  position: sticky;
-  top: 0;
-  z-index: 6;
+.task-table th {
+  box-shadow: 0 2px 0 #e5e7eb;
 }
 
 /* ===== ROWS ===== */
