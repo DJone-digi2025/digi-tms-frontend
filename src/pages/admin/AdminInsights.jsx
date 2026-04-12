@@ -85,16 +85,23 @@ const clientPending = clientNames.map(client =>
     ).length
   );
 
-  const clientData = {
-    labels: clientNames,
-datasets: [
-  { label: "Pending", data: clientPending, backgroundColor: "#6366f1" },
-  { label: "Completed", data: clientCompleted, backgroundColor: "#22c55e" }
-]
-  };
-  const totalClientPending = clientPending.reduce((a, b) => a + b, 0);
-  const totalClientCompleted = clientCompleted.reduce((a, b) => a + b, 0);
-  const totalClientTasks = filteredCsvTasks.length;
+const clientTotal = clientNames.map(client =>
+  filteredCsvTasks.filter(
+    t => t.client_name === client
+  ).length
+);
+
+const clientData = {
+  labels: clientNames,
+  datasets: [
+    { label: "Total", data: clientTotal, backgroundColor: "#6366f1" },
+    { label: "Completed", data: clientCompleted, backgroundColor: "#22c55e" }
+  ]
+};
+
+const totalClientTasks = filteredCsvTasks.length;
+const totalClientCompleted = clientCompleted.reduce((a, b) => a + b, 0);
+const totalClientPending = totalClientTasks - totalClientCompleted;
 
   /* ===== TEAM ANALYSIS ===== */
   // ✅ Extract valid member names safely
