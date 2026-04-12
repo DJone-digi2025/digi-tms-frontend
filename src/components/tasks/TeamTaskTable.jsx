@@ -9,6 +9,47 @@ const TeamTaskTable = ({
   onPublish
 }) => {
 
+  const [uploadedFiles, setUploadedFiles] = useState({});
+
+setUploadedFiles(prev => ({
+  ...prev,
+  [taskId]: data.url
+}));
+
+const handleUpload = async (e, taskId) => {
+  const file = e.target.files[0];
+
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const res = await fetch(
+      "https://digi-tms-backend.onrender.com/upload-output",
+      {
+        method: "POST",
+        body: formData
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.url) {
+      setUploadedFiles(prev => ({
+        ...prev,
+        [taskId]: data.url
+      }));
+    } else {
+      alert("Upload failed");
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Upload error");
+  }
+};
+
   const isStrategist = userRole === "strategist";
 
   console.log("USER ROLE:", userRole);
@@ -158,28 +199,45 @@ const TeamTaskTable = ({
 
     {(userRole === "designer" || userRole === "marketing") && (
       <>
-<input type="file" onChange={async (e) => {
-  const file = e.target.files[0];
+<div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
 
-  const formData = new FormData();
-  formData.append("file", file);
+  {/* Upload Button */}
+  <label className="upload-btn">
+    Upload
+    <input
+      type="file"
+      hidden
+      onChange={(e) => handleUpload(e, task.id)}
+    />
+  </label>
 
-  try {
-    const res = await fetch("https://digi-tms-backend.onrender.com/upload-output", {
-      method: "POST",
-      body: formData
-    });
+  {/* If file exists */}
+  {uploadedFiles[task.id] && (
+    <>
+      <a
+        href={uploadedFiles[task.id]}
+        target="_blank"
+        className="view-btn"
+      >
+        View
+      </a>
 
-    const data = await res.json();
-    console.log("UPLOAD RESULT:", data);
+      <button
+        className="remove-btn"
+        onClick={() => {
+          setUploadedFiles(prev => {
+            const updated = { ...prev };
+            delete updated[task.id];
+            return updated;
+          });
+        }}
+      >
+        Remove
+      </button>
+    </>
+  )}
 
-    alert(data.url);
-
-  } catch (err) {
-    console.error(err);
-    alert("Upload failed");
-  }
-}} />
+</div>
 
         <button
           className="btn-submit"

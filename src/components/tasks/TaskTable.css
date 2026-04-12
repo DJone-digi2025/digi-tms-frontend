@@ -310,3 +310,25 @@ textarea:focus {
 .btn-submit:active {
   transform: scale(0.96);
 }
+
+.upload-btn {
+  background: #6366f1;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.view-btn {
+  color: #22c55e;
+  text-decoration: none;
+}
+
+.remove-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
