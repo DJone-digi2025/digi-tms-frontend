@@ -10,12 +10,7 @@ const TeamTaskTable = ({
   onPublish
 }) => {
 
-  const [uploadedFiles, setUploadedFiles] = useState({});
-
-setUploadedFiles(prev => ({
-  ...prev,
-  [taskId]: data.url
-}));
+const [uploadedFiles, setUploadedFiles] = useState({});
 
 const handleUpload = async (e, taskId) => {
   const file = e.target.files[0];
