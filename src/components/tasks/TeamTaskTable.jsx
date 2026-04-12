@@ -11,11 +11,17 @@ const TeamTaskTable = ({
 }) => {
 
 const [uploadedFiles, setUploadedFiles] = useState({});
+const [uploading, setUploading] = useState({});
 
 const handleUpload = async (e, taskId) => {
   const file = e.target.files[0];
-
   if (!file) return;
+
+  // 🔴 START LOADING
+  setUploading(prev => ({
+    ...prev,
+    [taskId]: true
+  }));
 
   const formData = new FormData();
   formData.append("file", file);
@@ -31,31 +37,37 @@ const handleUpload = async (e, taskId) => {
 
     const data = await res.json();
 
-if (data.url) {
-  setUploadedFiles(prev => ({
-    ...prev,
-    [taskId]: data.url
-  }));
+    if (data.url) {
+      setUploadedFiles(prev => ({
+        ...prev,
+        [taskId]: data.url
+      }));
 
-  await fetch("https://digi-tms-backend.onrender.com/save-output", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      task_id: taskId,
-      output_file: data.url
-    })
-  });
+      await fetch("https://digi-tms-backend.onrender.com/save-output", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          task_id: taskId,
+          output_file: data.url
+        })
+      });
 
-} else {
-  alert("Upload failed");
-}
+    } else {
+      alert("Upload failed");
+    }
 
   } catch (err) {
     console.error(err);
     alert("Upload error");
   }
+
+  // 🔴 STOP LOADING
+  setUploading(prev => ({
+    ...prev,
+    [taskId]: false
+  }));
 };
 
 useEffect(() => {
@@ -223,14 +235,22 @@ useEffect(() => {
 <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
 
   {/* Upload Button */}
-  <label className="upload-btn">
-    Upload
-    <input
-      type="file"
-      hidden
-      onChange={(e) => handleUpload(e, task.id)}
-    />
-  </label>
+<label
+  className="upload-btn"
+  style={{
+    opacity: uploading[task.id] ? 0.6 : 1,
+    pointerEvents: uploading[task.id] ? "none" : "auto"
+  }}
+>
+  {uploading[task.id] ? "Uploading..." : "Upload"}
+
+  <input
+    type="file"
+    hidden
+    onChange={(e) => handleUpload(e, task.id)}
+    disabled={uploading[task.id]}
+  />
+</label>
 
   {/* If file exists */}
   {uploadedFiles[task.id] && (
