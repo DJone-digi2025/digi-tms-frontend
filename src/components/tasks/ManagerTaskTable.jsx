@@ -75,7 +75,7 @@ const ManagerTaskTable = ({
 
       {page === "evaluation" && (
         <>
-          <th>Delay Reason</th>
+          <th>Team Comment</th>
           <th>Manager Comment</th>
           <th>Actions</th>
         </>
@@ -230,9 +230,9 @@ const ManagerTaskTable = ({
                 {/* EVALUATION PAGE */}
                 {page === "evaluation" && (
                   <>
-                    <td style={{ color: "#dc2626", fontWeight: 500 }}>
-                      {task.reason_for_delay || "No delay"}
-                    </td>
+<td style={{ color: "#374151", fontWeight: 500 }}>
+  {task.strategist_comment || task.reason_for_delay || "-"}
+</td>
 
                     <td>
                       <textarea
