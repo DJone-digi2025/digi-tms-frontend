@@ -141,9 +141,10 @@
 /* PAGE CONTENT */
 .main-content > *:not(:first-child) {
   padding: 20px 24px;
-  overflow-y: auto;
+  overflow: hidden;   /* 🔥 KEY FIX */
+  display: flex;
+  flex-direction: column;
 }
-
 /* ===== MODAL (GLOBAL FIX) ===== */
 .modal-content {
   position: fixed;
