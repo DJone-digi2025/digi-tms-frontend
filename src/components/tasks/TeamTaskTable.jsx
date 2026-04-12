@@ -100,7 +100,6 @@ useEffect(() => {
                     <th>Assigned Date</th>
                     <th>Priority</th>  
                     <th>Status</th>
-                    <th>Delay Reason</th>
                     <th>Manager Comment</th>
                     <th>Your Comment</th>
                   </>
@@ -114,7 +113,6 @@ useEffect(() => {
                     <th>Description</th>
                     <th>Priority</th>
                     <th>Status</th>
-                    <th>Delay Reason</th>
                     <th>Manager Comment</th>
                     <th>Your Comment</th>
                   </>
@@ -205,10 +203,6 @@ useEffect(() => {
         <span className={`status ${task.status.toLowerCase()}`}>
           {task.status}
         </span>
-      </td>
-
-      <td style={{ color: "red" }}>
-        {task.reason_for_delay || "No delay"}
       </td>
 
       <td style={{ color: "#2563eb" }}>
