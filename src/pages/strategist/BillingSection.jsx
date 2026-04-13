@@ -100,16 +100,20 @@ await createBill({
   ...form,
   content_count: form.content_count ? Number(form.content_count) : null,
   amount_credited: form.amount_credited ? Number(form.amount_credited) : null,
-  user_id: user.id,
-  user_name: user.name,
-  role: user.role
+  user_id: user.id
 });
-      setShowModal(false);
+
+// 🔥 WAIT FOR REFRESH
+await fetchBills();
+
+// 🔥 THEN CLOSE
+setShowModal(false);
+
 setForm({
   client_name: "",
   content_type: "",
   content_count: "",
-  content_description: "", // ✅ ADD
+  content_description: "",
   amount_credited: ""
 });
       fetchBills();
