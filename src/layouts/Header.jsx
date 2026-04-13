@@ -38,6 +38,7 @@ const filtered = data.filter((m) => {
   );
 });
 
+
       setNotifications(filtered);
     } catch (err) {
       console.error(err);
