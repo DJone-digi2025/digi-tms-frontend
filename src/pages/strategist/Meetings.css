@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: 35% 65%;
   gap: 16px;
-  height: 100%;
+  height: calc(100vh - 100px);
 }
 
 /* ===== CARD BASE ===== */
@@ -57,9 +57,10 @@
 
 /* ===== TABLE SECTION ===== */
 .table-section {
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
-
 /* FILTER BAR */
 .meeting-filter {
   margin-bottom: 10px;
@@ -75,6 +76,7 @@
 .table-container {
   flex: 1;
   overflow-y: auto;
+  min-height: 0;   /* 🔥 IMPORTANT FIX */
 }
 
 /* STATUS BADGE */
