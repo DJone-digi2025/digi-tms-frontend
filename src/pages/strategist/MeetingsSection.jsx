@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { useAuth } from "../../context/AuthContext";
 
 import {
   createMeeting,
@@ -14,6 +15,7 @@ import { createPortal } from "react-dom";
 import "./Meetings.css";
 
 const MeetingsSection = () => {
+  const { user } = useAuth();
   const [date, setDate] = useState(new Date());
   const [meetings, setMeetings] = useState([]);
   const [showModal, setShowModal] = useState(false);
