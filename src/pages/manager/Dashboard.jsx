@@ -388,7 +388,7 @@ if (statusFilter) {
   );
 }
 
-if (stageFilter) {
+if (stageFilter && !statusFilter) {
   filteredTasks = filteredTasks.filter((t) => {
     const stage = (t.stage || "design").toLowerCase();
 
