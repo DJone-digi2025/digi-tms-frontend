@@ -23,27 +23,22 @@ const Header = ({ title, onLogout, collapsed, setCollapsed }) => {
     try {
       const data = await getMeetings();
 
-const now = new Date();
+const today = new Date();
+today.setHours(0, 0, 0, 0); // 🔥 start of today
 
 const filtered = data.filter((m) => {
   const [year, month, day] = m.meeting_date.split("-");
-  const [hours, minutes] = m.meeting_time.split(":");
 
-  const meetingDateTime = new Date(
-    year,
-    month - 1,   // JS months 0-based
-    day,
-    hours,
-    minutes
-  );
+  const meetingDate = new Date(year, month - 1, day);
 
   return (
     m.created_by === user.id &&
-    meetingDateTime >= now &&
+    meetingDate >= today &&   // ✅ only compare DATE (ignore time)
     m.status !== "completed" &&
     !seenNotifications.includes(m.id)
   );
 });
+
 
 
       setNotifications(filtered);
