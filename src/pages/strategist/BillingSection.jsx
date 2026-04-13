@@ -96,8 +96,10 @@ if (name === "client_name") {
     }
 
     try {
-      await createBill({
+await createBill({
   ...form,
+  content_count: form.content_count ? Number(form.content_count) : null,
+  amount_credited: form.amount_credited ? Number(form.amount_credited) : null,
   user_id: user.id,
   user_name: user.name,
   role: user.role
