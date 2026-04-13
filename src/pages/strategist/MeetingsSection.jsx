@@ -59,7 +59,13 @@ const MeetingsSection = () => {
       return;
     }
 
-    const formattedDate = date.toLocaleDateString("en-CA");
+    const formattedDate = new Date(
+  date.getFullYear(),
+  date.getMonth(),
+  date.getDate()
+)
+  .toISOString()
+  .split("T")[0];
 
     await createMeeting({
       client_name: form.client_name,
