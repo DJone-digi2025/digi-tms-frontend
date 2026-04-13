@@ -32,7 +32,7 @@ const filtered = data.filter((m) => {
   const meetingDate = new Date(year, month - 1, day);
 
   return (
-    m.created_by === user.id &&
+    m.created_by?.toString() === user.id?.toString() &&
     meetingDate >= today &&   // ✅ only compare DATE (ignore time)
     m.status !== "completed" &&
     !seenNotifications.includes(m.id)
