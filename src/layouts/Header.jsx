@@ -133,10 +133,16 @@ const filtered = data.filter((m) => {
                     </div>
 
 <div className="notif-client">
-  Called by: <strong>
+  Called by: 
+  <strong>
     {n.creator?.name || "Unknown"}
-    {n.creator?.role ? ` (${n.creator.role})` : ""}
   </strong>
+
+  {n.creator?.role && (
+    <span className="role-badge">
+      {n.creator.role}
+    </span>
+  )}
 </div>
 
                     <div className="notif-time">
