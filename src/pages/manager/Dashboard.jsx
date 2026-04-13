@@ -340,7 +340,7 @@ data = await getManagerTasks({
     const total = tasks.length;
 
     const pending = tasks.filter(
-      (t) => t.status === "ASSIGNED" || t.status === "SUBMITTED"
+      (t) => t.status === "ASSIGNED" || t.status === "SUBMITTED" || t.status === "REWORK"
     ).length;
 
     const completed = tasks.filter(
