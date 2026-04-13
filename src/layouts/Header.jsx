@@ -26,8 +26,15 @@ const Header = ({ title, onLogout, collapsed, setCollapsed }) => {
 const now = new Date();
 
 const filtered = data.filter((m) => {
+  const [year, month, day] = m.meeting_date.split("-");
+  const [hours, minutes] = m.meeting_time.split(":");
+
   const meetingDateTime = new Date(
-    `${m.meeting_date}T${m.meeting_time}`
+    year,
+    month - 1,   // JS months 0-based
+    day,
+    hours,
+    minutes
   );
 
   return (
