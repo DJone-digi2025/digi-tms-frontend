@@ -161,7 +161,7 @@ const handleRemove = async (taskId) => {
   : tasks;
 
   return (
-    <div className="plans-container">
+    <div className="plans-table-container">
 
       {/* 🔥 UPLOAD CARD */}
       <div className="upload-card">

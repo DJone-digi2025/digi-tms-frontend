@@ -140,6 +140,8 @@ const grouped = Object.values(
 );
 
   return (
+    <div className="billing-container">
+  <div className="billing-table-container">
     <div>
 
       {/* HEADER */}
@@ -239,6 +241,8 @@ const grouped = Object.values(
     })}
 </tbody>
       </table>
+       </div>
+</div>
 
 {showDetails &&
   createPortal(

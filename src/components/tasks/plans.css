@@ -1,10 +1,16 @@
 /* CONTAINER */
 .plans-container {
+  height: calc(100vh - 100px);  /* adjust if needed */
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
+/* if table exists */
+.plans-table-container {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
 /* UPLOAD CARD */
 .upload-card {
   background: #ffffff;
