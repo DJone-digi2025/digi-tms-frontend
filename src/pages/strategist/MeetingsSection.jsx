@@ -62,7 +62,8 @@ const MeetingsSection = () => {
     await createMeeting({
       client_name: form.client_name,
       meeting_date: formattedDate,
-      meeting_time: form.meeting_time
+      meeting_time: form.meeting_time,
+      created_by: User.id
     });
 
     setShowModal(false);
