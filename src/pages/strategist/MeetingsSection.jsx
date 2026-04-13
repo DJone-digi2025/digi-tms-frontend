@@ -63,7 +63,7 @@ const MeetingsSection = () => {
       client_name: form.client_name,
       meeting_date: formattedDate,
       meeting_time: form.meeting_time,
-      created_by: User.id
+      created_by: user.id
     });
 
     setShowModal(false);
