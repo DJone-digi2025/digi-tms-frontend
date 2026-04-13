@@ -131,6 +131,10 @@ const filtered = data.filter((m) => {
                     <div className="notif-client">
                       Client: <strong>{n.client_name}</strong>
                     </div>
+                    
+<div className="notif-client">
+  Called by: <strong>{n.creator?.name || "Unknown"}</strong>
+</div>
 
                     <div className="notif-time">
                       🕒 {new Date(n.meeting_date).toLocaleDateString()} at {n.meeting_time}
