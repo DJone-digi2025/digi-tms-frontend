@@ -545,7 +545,7 @@ return (
   <option value="">All Status</option>
   <option value="ASSIGNED">Assigned</option>
   <option value="SUBMITTED">Submitted</option>
-  <option value="COMPLETED">Rework</option>
+  <option value="REWORK">Rework</option>
 </select>
 
 <select value={stageFilter} onChange={(e) => setStageFilter(e.target.value)}>
