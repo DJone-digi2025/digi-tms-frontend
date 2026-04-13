@@ -23,15 +23,20 @@ const Header = ({ title, onLogout, collapsed, setCollapsed }) => {
     try {
       const data = await getMeetings();
 
-      const today = new Date().toISOString().split("T")[0];
+const now = new Date();
 
-      const filtered = data.filter(
-        (m) =>
-          m.created_by === user.id &&
-          m.meeting_date >= today &&
-          m.status !== "completed" &&
-          !seenNotifications.includes(m.id)
-      );
+const filtered = data.filter((m) => {
+  const meetingDateTime = new Date(
+    `${m.meeting_date}T${m.meeting_time}`
+  );
+
+  return (
+    m.created_by === user.id &&
+    meetingDateTime >= now &&
+    m.status !== "completed" &&
+    !seenNotifications.includes(m.id)
+  );
+});
 
       setNotifications(filtered);
     } catch (err) {
