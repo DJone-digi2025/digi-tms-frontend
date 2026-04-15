@@ -153,6 +153,15 @@ const MainLayout = ({ children, setPage, page }) => {
                 <span className="icon"><Folder size={18} /></span>
                 {!collapsed && <span>Plans</span>}
               </button>
+
+<button
+  className={page === "team" ? "active" : ""}
+  onClick={() => setPage("team")}
+>
+  <span className="icon"><ClipboardList size={18} /></span>
+  {!collapsed && <span>Team</span>}
+</button>
+
             </>
           )}
        </div>

@@ -396,6 +396,10 @@ tasks.forEach(task => {
             <CompletedTaskTable tasks={tasks} />
           )}
 
+          {page === "team" && (
+            <PlansSection />   // temporary placeholder
+          )}
+
         </div>
       )}
     </div>
