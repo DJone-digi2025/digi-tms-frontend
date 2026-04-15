@@ -7,6 +7,7 @@ import TeamTaskTable from "../../components/tasks/TeamTaskTable";
 import PlansSection from "../../components/tasks/PlansSection";
 import { saveComment, submitTask, publishTask } from "../../api/taskApi";
 import CompletedTaskTable from "../../components/tasks/CompletedTaskTable";
+import DeveloperDashboard from "../developer/DeveloperDashboard";
 
 const EmployeeContent = ({ page }) => {
   const { user } = useAuth();
@@ -396,9 +397,9 @@ tasks.forEach(task => {
             <CompletedTaskTable tasks={tasks} />
           )}
 
-          {page === "team" && (
-            <PlansSection />   // temporary placeholder
-          )}
+{page === "team" && (
+  <DeveloperDashboard />
+)}
 
         </div>
       )}
