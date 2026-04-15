@@ -79,15 +79,9 @@ const handleSubmit = async (taskId) => {
     }
 
     // ✅ delay validation only for non-strategist
-    if (isDelayed) {
-      if (!currentValue) {
-        return alert("Delay reason required");
-      }
-
-      await submitTask(taskId, currentValue);
-      fetchTasks();
-      return;
-    }
+// ✅ always allow submit
+await submitTask(taskId, currentValue || null);
+fetchTasks();
 
     // ✅ normal submit
     await submitTask(taskId);
