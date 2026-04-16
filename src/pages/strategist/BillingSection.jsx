@@ -199,12 +199,11 @@ const grouped = Object.values(
         </thead>
 
 <tbody>
-  {clients
-    .filter((c) =>
-      selectedClient ? c.client_name === selectedClient : true
-    )
-    .map((client) => {
-
+{grouped
+  .filter((c) =>
+    selectedClient ? c.client_name === selectedClient : true
+  )
+  .map((client) => {
       const clientBills = bills.filter(
         (b) => b.client_name === client.client_name
       );
@@ -218,17 +217,25 @@ const grouped = Object.values(
         <tr key={client.client_name}>
           <td>{client.client_name}</td>
 
-          <td>
-            <span style={{
-              padding: "4px 10px",
-              borderRadius: "12px",
-              background: client.active ? "#dcfce7" : "#fee2e2",
-              color: client.active ? "#166534" : "#991b1b",
-              fontSize: "12px"
-            }}>
-              {client.active ? "Active" : "Inactive"}
-            </span>
-          </td>
+<td>
+  <span style={{
+    padding: "4px 10px",
+    borderRadius: "12px",
+    background:
+      client.status === "paid" ? "#dcfce7" :
+      client.status === "partial" ? "#fef3c7" :
+      client.status === "excess" ? "#e0e7ff" :
+      "#fee2e2",
+    color:
+      client.status === "paid" ? "#166534" :
+      client.status === "partial" ? "#92400e" :
+      client.status === "excess" ? "#3730a3" :
+      "#991b1b",
+    fontSize: "12px"
+  }}>
+    {client.status}
+  </span>
+</td>
 
           <td>₹{client.total_contract_amount || 0}</td>
 
