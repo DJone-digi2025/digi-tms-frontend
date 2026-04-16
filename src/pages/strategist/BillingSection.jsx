@@ -326,37 +326,35 @@ const grouped = Object.values(
               </tr>
             </thead>
 
-            <tbody>
-              {bills
-                .filter(
-                  (b) =>
-                    b.client_name?.trim().toLowerCase() ===
-                    selectedBill?.client_name?.trim().toLowerCase()
-                )
-                .map((entry) => (
-                  <tr key={entry.id}>
-                    <td>{entry.content_type}</td>
-                    <td>
-                      {entry.content_description || "-"}
-                    </td>
-                    <td>{entry.content_count}</td>
+<tbody>
+  {(() => {
+    const entries = bills.filter(
+      (b) =>
+        b.client_name === selectedBill?.client_name
+    );
 
-                    <td>
-                      ₹{entry.amount_credited}
-                      <div
-                        style={{
-                          fontSize: "11px",
-                          color: "#888"
-                        }}
-                      >
-                        {entry.created_at?.split("T")[0]}
-                      </div>
-                    </td>
+    console.log("Selected Client:", selectedBill?.client_name);
+    console.log("All Bills:", bills);
+    console.log("Filtered Entries:", entries);
 
-                    <td>{entry.logged_by || "-"}</td>
-                  </tr>
-                ))}
-            </tbody>
+    return entries.map((entry) => (
+      <tr key={entry.id}>
+        <td>{entry.content_type}</td>
+        <td>{entry.content_description || "-"}</td>
+        <td>{entry.content_count}</td>
+
+        <td>
+          ₹{entry.amount_credited}
+          <div style={{ fontSize: "11px", color: "#888" }}>
+            {entry.created_at?.split("T")[0]}
+          </div>
+        </td>
+
+        <td>{entry.logged_by || "-"}</td>
+      </tr>
+    ));
+  })()}
+</tbody>
           </table>
         </div>
       </div>
