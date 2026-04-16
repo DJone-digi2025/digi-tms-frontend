@@ -10,11 +10,24 @@ const StrategistTeam = () => {
       .then(res => res.json())
       .then(data => {
         // ✅ ONLY DESIGNERS
-        const filtered = data.filter(
-          (m) => m.role?.toLowerCase() === "designer"
-        );
+const filtered = data.filter((m) => {
+  const role = m.role?.toLowerCase().trim();
+  return role === "designer";
+});
         setDesigners(filtered);
       })
+.then(data => {
+  console.log("TEAM API DATA:", data);
+
+  const filtered = data.filter((m) => {
+    const role = m.role?.toLowerCase().trim();
+    return role === "designer";
+  });
+
+  console.log("FILTERED DESIGNERS:", filtered);
+
+  setDesigners(filtered);
+})
       .catch(err => console.error(err));
   }, []);
 
