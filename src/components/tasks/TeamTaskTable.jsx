@@ -96,12 +96,17 @@ useEffect(() => {
               <tr>
                 {isStrategist ? (
                   <>
-                    <th>Task Code</th>
-                    <th>Assigned Date</th>
-                    <th>Priority</th>  
-                    <th>Status</th>
-                    <th>Manager Comment</th>
-                    <th>Your Comment</th>
+<>
+  <th>Task Code</th>
+  <th>Assigned Date</th>
+  <th>Plan Link</th>
+  <th>Plan File</th>
+  <th>Description</th>
+  <th>Priority</th>
+  <th>Status</th>
+  <th>Manager Comment</th>
+  <th>Your Comment</th>
+</>
                   </>
                 ) : (
                   <>
@@ -132,6 +137,24 @@ useEffect(() => {
       <td>{task.task_code || `#${task.id}`}</td>
 
       <td>{task.assign_date}</td>
+
+  <td>
+    {task.plan_link ? (
+      <a href={task.plan_link} target="_blank" rel="noreferrer">
+        View Plan
+      </a>
+    ) : "-"}
+  </td>
+
+  <td>
+    {task.plan_file ? (
+      <a href={task.plan_file} target="_blank" rel="noreferrer">
+        View File
+      </a>
+    ) : "-"}
+  </td>
+
+  <td>{task.description || "-"}</td>
 
       <td>
         <span
@@ -221,7 +244,7 @@ useEffect(() => {
 <td>
   <div style={{ display: "flex", gap: "5px" }}>
 
-    {(userRole === "designer" || userRole === "marketing") && (
+   {(userRole === "designer" || userRole === "marketing" || userRole === "strategist") && (
       <>
 <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
 
