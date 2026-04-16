@@ -38,14 +38,17 @@ const [form, setForm] = useState({
 
   const [selectedClient, setSelectedClient] = useState("");
 
-  const fetchBills = async () => {
-    try {
-      const data = await getBills();
-      setBills(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+const fetchBills = async () => {
+  try {
+    const data = await getBills();
+
+    console.log("🔥 API Bills Response:", data);  // ADD THIS
+
+    setBills(data);
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 const fetchMeta = async () => {
   try {
