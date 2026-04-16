@@ -286,6 +286,7 @@ tasks.forEach(task => {
 
   return (
     <div className="page-section">
+      {page === "team" && <StrategistTeam />}
 {page !== "team" && (
 <div className="filter-bar">
 
@@ -367,7 +368,7 @@ tasks.forEach(task => {
       )}
 
       {/* 🟣 STRATEGIST */}
-      {true && (
+      {isStrategist && (
         <div className="section-content">
 
           {/* 🔵 INSIGHTS PAGE */}
