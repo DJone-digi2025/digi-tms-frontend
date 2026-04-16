@@ -259,15 +259,21 @@ const grouped = Object.values(
                   Details
                 </button>
 
-                <button
-                  className="primary-btn"
-                  onClick={() => {
-                    setSelectedBill(client);
-                    setPaymentModal(true);
-                  }}
-                >
-                  Update
-                </button>
+<button
+  className="primary-btn"
+  onClick={() => {
+    setSelectedBill(client);
+
+    setForm((prev) => ({
+      ...prev,
+      client_name: client.client_name
+    }));
+
+    setPaymentModal(true);
+  }}
+>
+  Update
+</button>
 
               </div>
             </td>
@@ -418,16 +424,15 @@ const grouped = Object.values(
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
 <h3>Add Bill Entry</h3>
 
-<select
+<input
   name="client_name"
   value={form.client_name}
-  onChange={handleChange}
->
-  <option value="">Select Client</option>
-  {clients.map((c, i) => (
-    <option key={i} value={c.client_name}>{c.client_name}</option>
-  ))}
-</select>
+  readOnly
+  style={{
+    background: "#f3f4f6",
+    cursor: "not-allowed"
+  }}
+/>
 
 <input
   name="bill_type"
