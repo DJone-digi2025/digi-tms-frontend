@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const StrategistTeam = () => {
   const [designers, setDesigners] = useState([]);
 
-  const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const BASE_URL = "https://digi-tms-backend.onrender.com";
 
   useEffect(() => {
     fetch(`${BASE_URL}/team-members`)
