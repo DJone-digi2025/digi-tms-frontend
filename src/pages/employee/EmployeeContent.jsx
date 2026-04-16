@@ -400,7 +400,7 @@ tasks.forEach(task => {
             <CompletedTaskTable tasks={tasks} />
           )}
 
-{page === "team" && (
+{page?.toLowerCase().trim() === "team" && (
   <StrategistTeam />
 )}
 
