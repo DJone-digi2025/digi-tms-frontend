@@ -107,7 +107,7 @@ await createBill({
 await fetchBills();
 
 // 🔥 THEN CLOSE
-setShowModal(false);
+setPaymentModal(false);
 
 setForm({
   client_name: "",
