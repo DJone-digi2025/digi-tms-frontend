@@ -244,7 +244,7 @@ useEffect(() => {
 <td>
   <div style={{ display: "flex", gap: "5px" }}>
 
-   {(userRole === "designer" || userRole === "marketing" || userRole === "strategist") && (
+    {(userRole === "designer" || userRole === "marketing") && (
       <>
 <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
 
