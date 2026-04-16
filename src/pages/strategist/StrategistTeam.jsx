@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 
 const StrategistTeam = () => {
-  const { login } = useAuth();
+  const { user, login } = useAuth();
     console.log("✅ StrategistTeam mounted");
   const [designers, setDesigners] = useState([]);
 
@@ -48,14 +48,10 @@ fetch(`${BASE_URL}/team-members`)
 <div
   key={d.id}
 onClick={() => {
-  const currentUser = JSON.parse(localStorage.getItem("user"));
+  // ✅ use context user (not localStorage)
+  localStorage.setItem("original_user", JSON.stringify(user));
 
-  // ✅ store strategist
-  localStorage.setItem("original_user", JSON.stringify(currentUser));
-
-  // ✅ switch to designer
   login(d);
-
   window.location.href = "/dashboard";
 }}
   style={{

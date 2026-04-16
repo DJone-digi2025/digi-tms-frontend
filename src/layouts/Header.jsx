@@ -10,7 +10,9 @@ const Header = ({ title, onLogout, collapsed, setCollapsed }) => {
   const [notifications, setNotifications] = useState([]);
   const [seenNotifications, setSeenNotifications] = useState([]);
   const { user, login } = useAuth();
-  const originalUser = JSON.parse(localStorage.getItem("original_user"));
+const originalUser =
+  JSON.parse(localStorage.getItem("original_user")) ||
+  JSON.parse(localStorage.getItem("dev_user"));
 
   const handleNotificationClick = (id) => {
     setSeenNotifications((prev) => [...prev, id]);
