@@ -575,8 +575,291 @@ return forcePage ? (
 
   </div>
 )}
+
+{/* 🔥 CREATE MODAL */}
+  {showModal && (
+    <div className="modal-overlay">
+      <div className="modal">
+
+        <h3>Create Task</h3>
+
+        {/* CLIENT */}
+        <select name="client_name" onChange={handleCreateChange}>
+          <option value="">Select Client</option>
+          {[...new Set(tasks.map(t => t.client_name))].map((c, i) => (
+            <option key={i} value={c}>{c}</option>
+          ))}
+          <option value="custom">Custom</option> 
+        </select>
+
+        {newTask.client_name === "custom" && (
+          <input
+            type="text"
+            placeholder="Enter custom client name"
+            name="custom_client_name"
+            onChange={handleCreateChange}
+          />
+        )}
+
+        {/* CONTENT */}
+        <select name="content_type" onChange={handleCreateChange}>
+          <option value="">Select Content</option>
+          <option value="reel">Reel</option>
+          <option value="post">Post</option>
+          <option value="carousel">Carousel</option>
+          <option value="custom">Custom</option>
+        </select>
+
+        
+        {newTask.content_type === "custom" && (
+           <input
+             type="text"
+             placeholder="Enter custom content type"
+             name="custom_content_type"
+             onChange={handleCreateChange}
+           />
+        )}
+
+<select name="assigned_to_role" onChange={handleCreateChange}>
+  <option value="">Select Role</option>
+  <option value="designer">Designer</option>
+  <option value="strategist">Strategist</option>
+</select>
+
+        {/* MEMBER */}
+<select
+  name="assigned_to"
+  onChange={handleCreateChange}
+  disabled={!newTask.assigned_to_role} // ✅ important
+>
+  <option value="">Select Member</option>
+  {members
+    .filter(m => m.role?.toLowerCase() === newTask.assigned_to_role)
+    .map(m => (
+      <option key={m.id} value={m.name}>{m.name}</option>
+    ))
+  }
+</select>
+
+        {/* 🔥 PRIORITY */}
+        <select name="priority" onChange={handleCreateChange}>
+          <option value="">Select Priority</option>
+          <option value="high">High</option>
+          <option value="normal">Normal</option>
+          <option value="low">Low</option>
+        </select>
+
+        {/* 🔥 PUBLISH DATE (REQUIRED) */}
+        <input
+          type="date"
+          name="publish_date"
+          onChange={handleCreateChange}
+        />
+<label style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "10px" }}>
+  <input
+    type="checkbox"
+    name="requires_plan"
+    checked={newTask.requires_plan}
+    onChange={(e) =>
+      setNewTask(prev => ({
+        ...prev,
+        requires_plan: e.target.checked
+      }))
+    }
+  />
+  Requires Plan
+</label>
+
+        {previewDate && (
+          <div style={{
+            background: "#eef2ff",
+            padding: "8px",
+            borderRadius: "6px",
+            fontSize: "14px",
+            display: "flex",
+            alignItems: "center",
+            gap: "6px"
+          }}>
+            <CalendarClock size={16} />
+            Will be assigned on: <b>{previewDate}</b>
+          </div>
+        )}
+
+        <div style={{ marginTop: "10px" }}>
+          <button className="btn btn-green" onClick={handleCreateTask}>
+            Create
+          </button>
+
+          <button
+            className="btn btn-red"
+            onClick={() => setShowModal(false)}
+          >
+            Cancel
+          </button>
+        </div>
+
+      </div>
+    </div>
+  )}
+
+{showDelayModal && (
+  <div className="modal-overlay">
+    <div className="modal">
+
+      <h3>Delay Control</h3>
+
+      {/* TYPE */}
+      <select
+        value={delayType}
+        onChange={(e) => {
+          setDelayType(e.target.value);
+          setDelayTarget("");
+        }}
+      >
+        <option value="">Select Type</option>
+        <option value="task">Task</option>
+        <option value="user">Person</option>
+      </select>
+
+      {/* TARGET */}
+      <select
+        value={delayTarget}
+        onChange={(e) => setDelayTarget(e.target.value)}
+        disabled={!delayType}
+      >
+        <option value="">Select Target</option>
+
+        {delayType === "task" &&
+          tasks.map((t) => (
+            <option key={t.id} value={t.id}>
+              {t.task_code || t.id}
+            </option>
+          ))}
+
+        {delayType === "user" &&
+          members.map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.name}
+            </option>
+          ))}
+      </select>
+
+      {/* ACTION */}
+      <select
+          value={delayAction}
+          onChange={(e) => setDelayAction(e.target.value)}
+        >
+        <option value="">Select Action</option>
+        <option value="pause">Pause</option>
+        <option value="resume">Resume</option>
+      </select>
+
+      <div style={{ marginTop: "10px" }}>
+       
+<button
+  className="btn btn-green"
+  disabled={!delayType || !delayTarget || !delayAction}
+  onClick={async () => {
+
+
+
+    try {
+      const isPause = delayAction === "pause";
+
+      if (delayType === "task") {
+        await pauseTasks([delayTarget], isPause);
+      }
+
+      if (delayType === "user") {
+        await pauseUsers([delayTarget], isPause);
+      }
+
+setDelayToast(
+  `${delayAction === "pause" ? "Paused" : "Resumed"} successfully`
+);
+
+      setShowDelayModal(false);
+      setDelayType("");
+      setDelayTarget("");
+      setDelayAction("");
+
+      fetchTasks(); // refresh
+
+    } catch (err) {
+      console.error(err);
+      alert("Action failed");
+    }
+
+  }}
+>
+  Apply
+</button>
+
+        <button
+          className="btn btn-red"
+          onClick={() => {
+  setShowDelayModal(false);
+  setDelayType("");
+  setDelayTarget("");
+  setDelayAction("");
+}}
+>
+          Cancel
+        </button>
+      </div>
+
+    </div>
+  </div>
+)}
+
+      {showLowModal && (
+      <div className="modal-overlay">
+        <div className="modal">
+
+          <h3>Select Emergency Task</h3>
+
+            <select
+              value={selectedEmergencyTask}
+              onChange={(e) => setSelectedEmergencyTask(e.target.value)}
+            >
+            <option value="">Select High Priority Task</option>
+
+            {tasks
+              .filter(t => t.priority === "high")
+              .map(t => (
+                <option key={t.id} value={t.id}>
+                  {t.client_name} - {t.content_type}
+                </option>
+              ))}
+          </select>
+
+            <div className="modal-actions">
+              <button
+                className="btn-confirm"
+                disabled={!selectedEmergencyTask}
+                onClick={handleConfirmLow}
+              >
+                Confirm
+              </button>
+
+              <button
+                className="btn-cancel"
+                onClick={() => setShowLowModal(false)}
+              >
+                Cancel
+              </button>
+            </div>
+
+        </div>
+      </div>
+    )}
+   {/* GLOBAL TOAST */}
+<div style={{ position: "fixed", top: "20px", right: "20px", zIndex: 9999 }}>
+  {delayToast && <div className="toast">{delayToast}</div>}
+</div>
+
   </>
-  
+
 ) : (
 
   <MainLayout page={page} setPage={setPage}>
