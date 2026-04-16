@@ -284,19 +284,7 @@ const grouped = Object.values(
     Client Billing Details
   </h3>
 
-  <button
-    onClick={() => setShowDetails(false)}
-    style={{
-      background: "#f3f4f6",
-      border: "none",
-      padding: "6px 12px",
-      borderRadius: "6px",
-      cursor: "pointer",
-      fontSize: "12px"
-    }}
-  >
-    Close
-  </button>
+
 </div>
 
 {/* CLIENT INFO */}
