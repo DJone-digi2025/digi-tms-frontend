@@ -8,29 +8,22 @@ const StrategistTeam = () => {
 
   useEffect(() => {
     console.log("🔥 useEffect running");
-    fetch(`${BASE_URL}/team-members`)
-      .then(res => res.json())
-      .then(data => {
-        // ✅ ONLY DESIGNERS
-const filtered = data.filter((m) => {
-  const role = m.role?.toLowerCase().trim();
-  return role === "designer";
-});
-        setDesigners(filtered);
-      })
-.then(data => {
-  console.log("TEAM API DATA:", data);
+fetch(`${BASE_URL}/team-members`)
+  .then(res => res.json())
+  .then(data => {
+    console.log("TEAM API DATA:", data);
 
-  const filtered = data.filter((m) => {
-    const role = m.role?.toLowerCase().trim();
-    return role === "designer";
-  });
+    const filtered = data.filter((m) => {
+      const role = m.role?.toLowerCase().trim();
+      return role === "designer";
+    });
 
-  console.log("FILTERED DESIGNERS:", filtered);
+    console.log("FILTERED DESIGNERS:", filtered);
 
-  setDesigners(filtered);
-})
-      .catch(err => console.error(err));
+    setDesigners(filtered);
+  })
+  .catch(err => console.error(err));
+      
   }, []);
 
   return (
@@ -50,14 +43,16 @@ const filtered = data.filter((m) => {
         gap: "16px"
       }}>
         {designers.map((d) => (
-          <div
-            key={d.id}
-            style={{
-              background: "white",
-              padding: "16px",
-              borderRadius: "12px",
-              boxShadow: "0 6px 16px rgba(0,0,0,0.05)"
-            }}
+<div
+  key={d.id}
+  onClick={() => console.log("Clicked:", d)}
+  style={{
+    background: "white",
+    padding: "16px",
+    borderRadius: "12px",
+    boxShadow: "0 6px 16px rgba(0,0,0,0.05)",
+    cursor: "pointer"
+  }}
           >
             <div style={{ fontWeight: "600" }}>{d.name}</div>
 
