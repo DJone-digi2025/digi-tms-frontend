@@ -103,11 +103,10 @@ await createBill({
   user_id: user.id
 });
 
-// 🔥 WAIT FOR REFRESH
-await fetchBills();
-
 // 🔥 THEN CLOSE
 setPaymentModal(false);
+setSelectedBill(null);
+
 
 setForm({
   client_name: "",
@@ -116,7 +115,7 @@ setForm({
   content_description: "",
   amount_credited: ""
 });
-      fetchBills();
+      await fetchBills();
     } catch (err) {
       console.error(err);
       alert("Failed to add bill");
