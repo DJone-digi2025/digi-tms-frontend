@@ -272,43 +272,63 @@ const grouped = Object.values(
         }}
       >
         {/* HEADER */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "10px"
-          }}
-        >
-          <h3>Client Billing Details</h3>
+<div
+  style={{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "15px"
+  }}
+>
+  <h3 style={{ margin: 0 }}>
+    Client Billing Details
+  </h3>
 
-          <button onClick={() => setShowDetails(false)}>
-            Close
-          </button>
-        </div>
+  <button
+    onClick={() => setShowDetails(false)}
+    style={{
+      background: "#f3f4f6",
+      border: "none",
+      padding: "6px 12px",
+      borderRadius: "6px",
+      cursor: "pointer",
+      fontSize: "12px"
+    }}
+  >
+    Close
+  </button>
+</div>
 
-        {/* CLIENT INFO */}
-        <div style={{ marginBottom: "10px" }}>
-          <div style={{ fontSize: "12px", color: "#666" }}>
-            Client
-          </div>
-          <div style={{ fontWeight: "600" }}>
-            {selectedBill?.client_name}
-          </div>
-        </div>
+{/* CLIENT INFO */}
+<div
+  style={{
+    display: "flex",
+    gap: "40px",
+    marginBottom: "15px"
+  }}
+>
+  <div>
+    <div style={{ fontSize: "12px", color: "#666" }}>
+      Client
+    </div>
+    <div style={{ fontWeight: "600" }}>
+      {selectedBill?.client_name}
+    </div>
+  </div>
 
-        <div style={{ marginBottom: "10px" }}>
-          <div style={{ fontSize: "12px", color: "#666" }}>
-            Contract
-          </div>
-          <div>
-            ₹{getClientTotal(selectedBill?.client_name)}
-          </div>
-        </div>
+  <div>
+    <div style={{ fontSize: "12px", color: "#666" }}>
+      Contract
+    </div>
+    <div style={{ fontWeight: "600" }}>
+      ₹{getClientTotal(selectedBill?.client_name)}
+    </div>
+  </div>
+</div>
 
         <hr />
 
-        <h4 style={{ marginTop: "10px" }}>Entries</h4>
+        <h4 style={{ margin: "10px 0" }}>Entries</h4>
 
         {/* TABLE SCROLL */}
         <div
