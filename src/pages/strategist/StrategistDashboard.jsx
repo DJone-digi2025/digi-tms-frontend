@@ -41,13 +41,14 @@ const StrategistDashboard = () => {
               <h2>
                 {page === "tasks" && "Tasks"}
                 {page === "completed" && "Completed Tasks"}
+                {page === "team" && "Team"}
                
               </h2>
 
               <p>
                 {page === "tasks" && "Manage your assigned tasks"}
                 {page === "completed" && "Review completed work"}
-                
+                {page === "team" && "View your designers"}
               </p>
             </div>
           </div>
