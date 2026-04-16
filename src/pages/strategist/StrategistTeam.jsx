@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 const StrategistTeam = () => {
+  const { login } = useAuth();
     console.log("✅ StrategistTeam mounted");
   const [designers, setDesigners] = useState([]);
 
@@ -45,7 +47,10 @@ fetch(`${BASE_URL}/team-members`)
         {designers.map((d) => (
 <div
   key={d.id}
-  onClick={() => console.log("Clicked:", d)}
+onClick={() => {
+  login(d);
+  window.location.href = "/dashboard";
+}}
   style={{
     background: "white",
     padding: "16px",
