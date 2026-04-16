@@ -367,7 +367,7 @@ tasks.forEach(task => {
       )}
 
       {/* 🟣 STRATEGIST */}
-      {isStrategist && (
+      {true && (
         <div className="section-content">
 
           {/* 🔵 INSIGHTS PAGE */}
