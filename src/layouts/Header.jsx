@@ -9,7 +9,8 @@ const Header = ({ title, onLogout, collapsed, setCollapsed }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [seenNotifications, setSeenNotifications] = useState([]);
-  const { user } = useAuth();
+  const { user, login } = useAuth();
+  const originalUser = JSON.parse(localStorage.getItem("original_user"));
 
   const handleNotificationClick = (id) => {
     setSeenNotifications((prev) => [...prev, id]);
@@ -158,6 +159,27 @@ const filtered = data.filter((m) => {
             </div>
           )}
         </div>
+{originalUser && (
+  <button
+    onClick={() => {
+      login(originalUser);
+      localStorage.removeItem("original_user");
+      window.location.href = "/dashboard";
+    }}
+    style={{
+      background: "#ef4444",
+      color: "white",
+      border: "none",
+      padding: "6px 10px",
+      borderRadius: "6px",
+      cursor: "pointer",
+      fontSize: "12px",
+      fontWeight: "500"
+    }}
+  >
+    Exit
+  </button>
+)}
 
         {/* 👤 PROFILE */}
         <div

@@ -48,7 +48,14 @@ fetch(`${BASE_URL}/team-members`)
 <div
   key={d.id}
 onClick={() => {
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+
+  // ✅ store strategist
+  localStorage.setItem("original_user", JSON.stringify(currentUser));
+
+  // ✅ switch to designer
   login(d);
+
   window.location.href = "/dashboard";
 }}
   style={{
