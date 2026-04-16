@@ -7,6 +7,7 @@ import PlansSection from "../../components/tasks/PlansSection";
 import EmployeeInsights from "../employee/EmployeeInsights";
 import "../manager/Dashboard.css";
 import { useAuth } from "../../context/AuthContext";
+import ManagerDashboard from "../manager/Dashboard";
 
 const StrategistDashboard = () => {
   const { user } = useAuth();
@@ -31,6 +32,10 @@ const StrategistDashboard = () => {
           </div>
         </div>
       )}
+
+{page === "overview" && (
+  <ManagerDashboard forcePage="tasks" />
+)}
 
       {/* ===== TASKS ===== */}
       {(page === "tasks" || page === "completed" || page ==="team") && (

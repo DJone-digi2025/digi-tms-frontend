@@ -128,6 +128,14 @@ const MainLayout = ({ children, setPage, page }) => {
                 {!collapsed && <span>Insights</span>}
               </button>
 
+<button
+  className={page === "overview" ? "active" : ""}
+  onClick={() => setPage("overview")}
+>
+  <span className="icon"><ClipboardList size={18} /></span>
+  {!collapsed && <span>Overview</span>}
+</button>
+
               <button className={page === "tasks" ? "active" : ""} onClick={() => setPage("tasks")}>
                 <span className="icon"><ClipboardList size={18} /></span>
                 {!collapsed && <span>Tasks</span>}

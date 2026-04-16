@@ -19,13 +19,13 @@ import { CalendarClock } from "lucide-react";
 import MeetingsSection from "../strategist/MeetingsSection";
 import BillingSection from "../strategist/BillingSection";
 
-const Dashboard = () => {
+const Dashboard = ({ forcePage }) => {
 
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const [tasks, setTasks] = useState([]);
-  const [page, setPage] = useState("tasks");
+  const [page, setPage] = useState(forcePage || "tasks");
   const [showLowModal, setShowLowModal] = useState(false);
   const [showMemberDropdown, setShowMemberDropdown] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
@@ -418,7 +418,167 @@ const handlePriorityOverride = async (taskId, priority) => {
   }
 };
 
-return (
+return forcePage ? (
+
+  <>
+{/* TASKS */}
+{page === "tasks" && (
+  <div className="page-section">
+
+    {/* HEADER */}
+    <div className="section-header">
+      <div className="section-header-left">
+        <h2>Tasks</h2>
+        <p>Manage and track all assigned tasks</p>
+      </div>
+
+<div className="section-header-right" style={{ display: "flex", gap: "10px" }}>
+
+  <button
+    className="secondary-btn"
+    onClick={() => setShowDelayModal(true)}
+  >
+    Delay Control
+  </button>
+
+  <button
+    className="primary-btn"
+    onClick={() => setShowModal(true)}
+  >
+    + Create Task
+  </button>
+
+</div>
+    </div> 
+
+    <div className="stats-grid">
+
+  <div className="stat-card">
+    <div className="stat-title">Total Tasks</div>
+    <div className="stat-value">{stats.total}</div>
+  </div>
+
+  <div className="stat-card">
+    <div className="stat-title">Pending</div>
+    <div className="stat-value yellow">{stats.pending}</div>
+  </div>
+
+  <div className="stat-card">
+    <div className="stat-title">Completed</div>
+    <div className="stat-value green">{stats.completed}</div>
+  </div>
+
+  <div className="stat-card">
+    <div className="stat-title">Rework</div>
+    <div className="stat-value red">{stats.rework}</div>
+  </div>
+
+</div>
+
+    {/* FILTERS */}
+    <div className="filter-bar">
+<div className="custom-dropdown">
+  <div
+    className="dropdown-selected"
+    onClick={() => setShowMemberDropdown(prev => !prev)}
+  >
+    {filters.assigned_to || "All Members"}
+    <span className="arrow">▾</span>
+  </div>
+
+  {showMemberDropdown && (
+    <div className="dropdown-menu">
+      <div
+        className="dropdown-item"
+        onClick={() => {
+          setFilters({ ...filters, assigned_to: "" });
+          setShowMemberDropdown(false);
+        }}
+      >
+        All Members
+      </div>
+
+      {members.map((m) => (
+        <div
+          key={m.id}
+          className={`dropdown-item ${
+            filters.assigned_to === m.name ? "active" : ""
+          }`}
+          onClick={() => {
+            setFilters({ ...filters, assigned_to: m.name });
+            setShowMemberDropdown(false);
+          }}
+        >
+          {m.name}
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+
+      <input
+        type="text"
+        name="client_name"
+        placeholder="Client"
+        onChange={handleFilterChange}
+      />
+
+      <input
+        type="date"
+        name="publish_date"
+        onChange={handleFilterChange}
+      />
+
+      <select name="priority" onChange={handleFilterChange}>
+        <option value="">All Priority</option>
+        <option value="high">High</option>
+        <option value="normal">Normal</option>
+        <option value="low">Low</option>
+      </select>
+
+     <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+  <option value="">All Status</option>
+  <option value="ASSIGNED">Assigned</option>
+  <option value="SUBMITTED">Submitted</option>
+  <option value="REWORK">Rework</option>
+</select>
+
+<select value={stageFilter} onChange={(e) => setStageFilter(e.target.value)}>
+  <option value="">All Stage</option>
+  <option value="design">Design</option>
+  <option value="publish">Publish</option>
+</select>
+
+    </div>
+
+    {/* CONTENT */}
+    <div className="section-content">
+      {loading ? (
+        <div className="empty-state">Loading...</div>
+      ) : filteredTasks.length === 0 ? (
+        <div className="empty-state">No tasks found</div>
+      ) : (
+        <ManagerTaskTable
+          tasks={filteredTasks}
+          page={page}
+          comments={comments}
+          onCommentChange={handleCommentChange}
+          onApprove={handleApprove}
+          onRework={handleRework}
+          onMarkLow={handleMarkLowClick}
+          onCancel={handleCancel}
+          fetchTasks={fetchTasks}
+          onPriorityOverride={handlePriorityOverride}
+        />
+      )}
+    </div>
+
+  </div>
+)}
+  </>
+  
+) : (
+
   <MainLayout page={page} setPage={setPage}>
 
       {/* MANAGER INSIGHTS */}
