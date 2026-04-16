@@ -199,7 +199,7 @@ const grouped = Object.values(
         </thead>
 
 <tbody>
-{grouped
+{clients
   .filter((c) =>
     selectedClient ? c.client_name === selectedClient : true
   )
@@ -213,6 +213,10 @@ const grouped = Object.values(
         0
       );
 
+      const status = clientBills.length
+  ? clientBills[0].status
+  : "pending";
+
       return (
         <tr key={client.client_name}>
           <td>{client.client_name}</td>
@@ -222,18 +226,18 @@ const grouped = Object.values(
     padding: "4px 10px",
     borderRadius: "12px",
     background:
-      client.status === "paid" ? "#dcfce7" :
-      client.status === "partial" ? "#fef3c7" :
-      client.status === "excess" ? "#e0e7ff" :
+      status === "paid" ? "#dcfce7" :
+      status === "partial" ? "#fef3c7" :
+      status === "excess" ? "#e0e7ff" :
       "#fee2e2",
     color:
-      client.status === "paid" ? "#166534" :
-      client.status === "partial" ? "#92400e" :
-      client.status === "excess" ? "#3730a3" :
+      status === "paid" ? "#166534" :
+      status === "partial" ? "#92400e" :
+      status === "excess" ? "#3730a3" :
       "#991b1b",
     fontSize: "12px"
   }}>
-    {client.status}
+    {status}
   </span>
 </td>
 
