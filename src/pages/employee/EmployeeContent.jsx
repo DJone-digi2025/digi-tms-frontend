@@ -286,7 +286,7 @@ tasks.forEach(task => {
 
   return (
     <div className="page-section">
-
+{page !== "team" && (
 <div className="filter-bar">
 
   <input
@@ -319,7 +319,7 @@ tasks.forEach(task => {
   </div>
 
 </div>
-
+)}
 
       {/* 🔵 NORMAL EMPLOYEE */}
       {!isStrategist && (
