@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 
 const StrategistTeam = () => {
+    console.log("✅ StrategistTeam mounted");
   const [designers, setDesigners] = useState([]);
 
   const BASE_URL = "https://digi-tms-backend.onrender.com";
 
   useEffect(() => {
+    console.log("🔥 useEffect running");
     fetch(`${BASE_URL}/team-members`)
       .then(res => res.json())
       .then(data => {
