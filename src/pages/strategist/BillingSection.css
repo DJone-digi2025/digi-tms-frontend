@@ -68,3 +68,28 @@
   overflow-y: auto;
   min-height: 0;
 }
+
+.task-table th {
+  background: #f9fafb;
+  font-weight: 600;
+  font-size: 13px;
+  color: #374151;
+}
+
+.task-table td {
+  font-size: 14px;
+  color: #111827;
+}
+
+.task-table tr:hover {
+  background: #f3f4f6;
+}
+
+.task-table::-webkit-scrollbar {
+  width: 6px;
+}
+
+.task-table::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}

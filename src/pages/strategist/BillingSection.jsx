@@ -319,14 +319,23 @@ const grouped = Object.values(
         <h4 style={{ margin: "10px 0" }}>Entries</h4>
 
         {/* TABLE SCROLL */}
-        <div
-          style={{
-            overflowY: "auto",
-            overflowX: "auto",
-            maxHeight: "50vh"
-          }}
-        >
-          <table className="task-table">
+<div
+  style={{
+    width: "100%",              // ✅ FULL WIDTH
+    overflowY: "auto",
+    maxHeight: "50vh",
+    border: "1px solid #e5e7eb",
+    borderRadius: "10px",
+    background: "#fafafa"       // subtle premium background
+  }}
+>
+          <table
+  className="task-table"
+  style={{
+    width: "100%",
+    minWidth: "100%",
+  }}
+>
             <thead>
               <tr>
                 <th>Content</th>
