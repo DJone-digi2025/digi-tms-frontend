@@ -11,7 +11,9 @@ import {
   Folder,
   DollarSign,
   CalendarDays,
-  CheckCircle
+  CheckCircle,
+  Users,        
+  BarChart3     
 } from "lucide-react";
 
 const MainLayout = ({ children, setPage, page }) => {
@@ -132,7 +134,7 @@ const MainLayout = ({ children, setPage, page }) => {
   className={page === "overview" ? "active" : ""}
   onClick={() => setPage("overview")}
 >
-  <span className="icon"><ClipboardList size={18} /></span>
+  <span className="icon"><BarChart3 size={18} /></span>
   {!collapsed && <span>Overview</span>}
 </button>
 
@@ -166,7 +168,7 @@ const MainLayout = ({ children, setPage, page }) => {
   className={page === "team" ? "active" : ""}
   onClick={() => setPage("team")}
 >
-  <span className="icon"><ClipboardList size={18} /></span>
+  <span className="icon"><Users size={18} /></span>
   {!collapsed && <span>Team</span>}
 </button>
 
