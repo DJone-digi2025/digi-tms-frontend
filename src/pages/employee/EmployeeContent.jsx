@@ -7,7 +7,7 @@ import TeamTaskTable from "../../components/tasks/TeamTaskTable";
 import PlansSection from "../../components/tasks/PlansSection";
 import { saveComment, submitTask, publishTask } from "../../api/taskApi";
 import CompletedTaskTable from "../../components/tasks/CompletedTaskTable";
-import DeveloperDashboard from "../developer/DeveloperDashboard.jsx";
+import StrategistTeam from "../strategist/StrategistTeam.jsx";
 
 const EmployeeContent = ({ page }) => {
   const { user } = useAuth();
@@ -282,9 +282,11 @@ tasks.forEach(task => {
 
 }, [tasks, user.role]);
 
+
+
   return (
     <div className="page-section">
-{page !== "team" && (
+
 <div className="filter-bar">
 
   <input
@@ -317,7 +319,7 @@ tasks.forEach(task => {
   </div>
 
 </div>
-)}
+
 
       {/* 🔵 NORMAL EMPLOYEE */}
       {!isStrategist && (
@@ -399,7 +401,7 @@ tasks.forEach(task => {
           )}
 
 {page === "team" && (
-  <DeveloperDashboard />
+  <StrategistTeam />
 )}
 
         </div>
