@@ -33,7 +33,7 @@ const StrategistDashboard = () => {
       )}
 
       {/* ===== TASKS ===== */}
-      {(page === "tasks" || page === "completed") && (
+      {(page === "tasks" || page === "completed" || page ==="team") && (
         <div className="page-section">
 
           <div className="section-header">
