@@ -12,6 +12,7 @@ import BASE_URL from "../../config/api";
 
 const BillingSection = ({page}) => {
   const { user } = useAuth();
+  const [members, setMembers] = useState([]);
 
 const isEditableUser =
   user?.role === "strategist" || user?.role === "manager";
@@ -23,6 +24,21 @@ const isEditableUser =
   const [selectedBill, setSelectedBill] = useState(null);
   const [clientSummary, setClientSummary] = useState(null);
   const [paymentAmount, setPaymentAmount] = useState("");
+
+const fetchMembers = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/team-members`);
+    const data = await res.json();
+    setMembers(data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const getMemberName = (id) => {
+  const member = members.find(m => m.id === id);
+  return member ? member.name : "Unknown";
+};
 
 
 const [form, setForm] = useState({
@@ -65,6 +81,7 @@ useEffect(() => {
   if (page === "billing") {
     fetchBills();
     fetchMeta();
+    fetchMembers();
   }
 }, [page]);
 const handleChange = (e) => {
@@ -372,7 +389,7 @@ const grouped = Object.values(
           </div>
         </td>
 
-        <td>{entry.created_by?.slice(0, 6) || "-"}</td>
+        <td>{getMemberName(entry.created_by)}</td>
       </tr>
     ));
   })()}
