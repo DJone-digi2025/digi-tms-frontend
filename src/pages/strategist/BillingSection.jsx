@@ -338,6 +338,7 @@ const grouped = Object.values(
 >
             <thead>
               <tr>
+                <th>Billing Type</th>
                 <th>Content</th>
                 <th>Description</th>
                 <th>Count</th>
@@ -359,6 +360,7 @@ const grouped = Object.values(
 
     return entries.map((entry) => (
       <tr key={entry.id}>
+        <td>{entry.bill_type || "-"}</td> 
         <td>{entry.content_type}</td>
         <td>{entry.content_description || "-"}</td>
         <td>{entry.content_count}</td>
@@ -370,7 +372,7 @@ const grouped = Object.values(
           </div>
         </td>
 
-        <td>{entry.logged_by || "-"}</td>
+        <td>{entry.created_by?.slice(0, 6) || "-"}</td>
       </tr>
     ));
   })()}
