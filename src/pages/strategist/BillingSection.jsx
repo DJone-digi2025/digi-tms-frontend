@@ -330,8 +330,8 @@ const grouped = Object.values(
               {bills
                 .filter(
                   (b) =>
-                    b.client_name ===
-                    selectedBill?.client_name
+                    b.client_name?.trim().toLowerCase() ===
+                    selectedBill?.client_name?.trim().toLowerCase()
                 )
                 .map((entry) => (
                   <tr key={entry.id}>
