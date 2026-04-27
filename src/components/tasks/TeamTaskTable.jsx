@@ -106,6 +106,7 @@ useEffect(() => {
   <th>Status</th>
   <th>Manager Comment</th>
   <th>Your Comment</th>
+  <th>Output</th>
 </>
                   </>
                 ) : (
@@ -182,6 +183,21 @@ useEffect(() => {
     value={comments[task.id] || ""}
     onChange={(e) => onCommentChange(task.id, e.target.value)}
   />
+</td>
+
+<td>
+  {task.output_file ? (
+    <a
+      href={task.output_file}
+      target="_blank"
+      rel="noreferrer"
+      style={{ color: "#2563eb", fontWeight: 500 }}
+    >
+      View
+    </a>
+  ) : (
+    "-"
+  )}
 </td>
 
     </>
