@@ -18,6 +18,7 @@ import { setPriorityOverride } from "../../api/taskApi";
 import { CalendarClock } from "lucide-react";
 import MeetingsSection from "../strategist/MeetingsSection";
 import BillingSection from "../strategist/BillingSection";
+import StrategistTeam from "../strategist/StrategistTeam";
 
 const Dashboard = ({ forcePage }) => {
 
@@ -1225,7 +1226,18 @@ setDelayToast(
       </div>
     )}
 
+{page === "team" && (
+  <div className="page-section">
+    <div className="section-header">
+      <h2>Team</h2>
+      <p>View your designers</p>
+    </div>
 
+    <div className="section-content">
+      <StrategistTeam />
+    </div>
+  </div>
+)}
 
 {/* 🔥 CREATE MODAL */}
   {showModal && (
