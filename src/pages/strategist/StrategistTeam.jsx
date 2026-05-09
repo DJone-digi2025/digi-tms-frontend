@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 
-const StrategistTeam = () => {
+const StrategistTeam = ({ mode = "strategist" }) => {
   const { user, login } = useAuth();
     console.log("✅ StrategistTeam mounted");
-  const [designers, setDesigners] = useState([]);
+  const [members, setMembers] = useState([]);
 
   const BASE_URL = "https://digi-tms-backend.onrender.com";
 
@@ -15,18 +15,23 @@ fetch(`${BASE_URL}/team-members`)
   .then(data => {
     console.log("TEAM API DATA:", data);
 
-    const filtered = data.filter((m) => {
-      const role = m.role?.toLowerCase().trim();
-      return role === "designer";
-    });
+const filtered = data.filter((m) => {
+  const role = m.role?.toLowerCase().trim();
+
+  if (mode === "manager") {
+    return role === "designer" || role === "strategist";
+  }
+
+  return role === "designer";
+});
 
     console.log("FILTERED DESIGNERS:", filtered);
 
-    setDesigners(filtered);
+    setMembers(filtered);
   })
   .catch(err => console.error(err));
       
-  }, []);
+  }, [mode]);
 
   return (
     <div style={{ padding: "20px" }}>
@@ -36,7 +41,7 @@ fetch(`${BASE_URL}/team-members`)
         fontWeight: "600",
         marginBottom: "20px"
       }}>
-        Designers
+        {mode === "manager" ? "Team Members" : "Designers"}
       </h2>
 
       <div style={{
@@ -44,7 +49,7 @@ fetch(`${BASE_URL}/team-members`)
         gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
         gap: "16px"
       }}>
-        {designers.map((d) => (
+        {members.map((d) => (
 <div
   key={d.id}
 onClick={() => {
@@ -73,7 +78,7 @@ onClick={() => {
               display: "inline-block",
               marginTop: "6px"
             }}>
-              designer
+              {d.role}
             </div>
           </div>
         ))}

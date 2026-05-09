@@ -1234,7 +1234,7 @@ setDelayToast(
     </div>
 
     <div className="section-content">
-      <StrategistTeam />
+      <StrategistTeam mode="manager" />
     </div>
   </div>
 )}
