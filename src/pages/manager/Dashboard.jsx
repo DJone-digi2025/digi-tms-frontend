@@ -1229,7 +1229,7 @@ setDelayToast(
 
 {page === "plans-tracker" && (
   <div className="section">
-    <div className="section-title">Plans Tracker</div>
+    <div className="section-title">Tasks Tracker</div>
 
     <PlansTracker />
   </div>
