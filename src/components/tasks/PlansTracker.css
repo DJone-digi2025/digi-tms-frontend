@@ -135,6 +135,30 @@
   flex-wrap: wrap;
 }
 
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.completed-dot {
+  background: linear-gradient(90deg, #4ade80, #22c55e);
+}
+
+.active-dot {
+  background: linear-gradient(90deg, #818cf8, #6366f1);
+}
+
+.remaining-dot {
+  background: #d1d5db;
+}
+
 .task-list {
   margin-top: 14px;
   border-top: 1px solid #e5e7eb;

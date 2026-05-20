@@ -116,9 +116,20 @@ const PlansTracker = () => {
 
         {/* LEGEND */}
 <div className="legend-row">
-          <span>🟢 Completed: {section.completed}</span>
-          <span>🟠 Active: {section.active}</span>
-          <span>⚪ Remaining: {section.remaining}</span>
+<div className="legend-item">
+  <span className="legend-dot completed-dot"></span>
+  Completed: {section.completed}
+</div>
+
+<div className="legend-item">
+  <span className="legend-dot active-dot"></span>
+  Active: {section.active}
+</div>
+
+<div className="legend-item">
+  <span className="legend-dot remaining-dot"></span>
+  Remaining: {section.remaining}
+</div>
         </div>
 
         {/* TASK LIST */}
