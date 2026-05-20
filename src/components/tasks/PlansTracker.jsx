@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./PlansTracker.css";
 
 const PlansTracker = () => {
 
@@ -211,37 +212,16 @@ const PlansTracker = () => {
 
 return (
 
-  <div
-    style={{
-      height: "100%",
-      overflowY: "auto",
-      paddingRight: "6px",
-      display: "grid",
-      gridTemplateColumns: "repeat(2, 1fr)",
-      gap: "20px",
-      alignItems: "start"
-    }}
-  >
+<div className="plans-tracker-container">
 
       {Object.values(data).map((client, index) => (
 
-        <div
-          key={index}
-          style={{
-            marginBottom: "30px",
-            background: "#f9fafb",
-            padding: "18px",
-            borderRadius: "12px"
-          }}
-        >
+<div
+  key={index}
+  className="client-card"
+>
 
-          <h3
-            style={{
-              marginBottom: "16px",
-              fontSize: "20px",
-              fontWeight: "700"
-            }}
-          >
+<h3 className="client-title">
             {client.client_name}
           </h3>
 

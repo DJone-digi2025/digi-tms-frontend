@@ -122,7 +122,7 @@ const MainLayout = ({ children, setPage, page }) => {
 
               <button className={page === "plans-tracker" ? "active" : ""} onClick={() => setPage("plans-tracker")}>
                 <span className="icon"><FolderKanban size={18} /></span>
-                {!collapsed && <span>Plans Tracker</span>}
+                {!collapsed && <span>Tasks Tracker</span>}
               </button>
 
 <button
