@@ -126,7 +126,9 @@ const fetchTasks = async () => {
         data = await getDesignerActiveTasks(user);
       } else if (page === "completed") {
         data = await getDesignerHistory(user);
-      } else if (page === "insights") {
+      } 
+      
+      else if (page === "insights") {
         data = await getDesignerHistory(user); // ✅ for table under charts
       }
     } else {
@@ -136,7 +138,7 @@ const fetchTasks = async () => {
         data = await getDesignerHistory(user);
       }
     }
-
+console.log("COMPLETED DATA:", data);
 const getPriorityValue = (task) => {
   const p = (task.priority_override || task.priority || "").toLowerCase();
   if (p === "high") return 3;
@@ -195,7 +197,7 @@ setAllTasks(
       // 🔥 STRATEGIST FILTER
 if (user.role === "strategist") {
   filtered = filtered.filter(task => {
-    
+
 if (page === "completed") {
   return task.status === "COMPLETED";
 }
