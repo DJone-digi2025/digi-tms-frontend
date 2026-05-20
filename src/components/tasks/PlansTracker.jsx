@@ -215,7 +215,11 @@ return (
     style={{
       height: "100%",
       overflowY: "auto",
-      paddingRight: "6px"
+      paddingRight: "6px",
+      display: "grid",
+      gridTemplateColumns: "repeat(2, 1fr)",
+      gap: "20px",
+      alignItems: "start"
     }}
   >
 
