@@ -1218,20 +1218,16 @@ setDelayToast(
   </div>
 )}
 
-    {/* PLANS */}
+{/* PLANS */}
 {page === "plans" && (
   <div className="page-section">
 
-    <div className="section-header">
-      <div>
-        <h2>Plans Tracker</h2>
-        <p>Track CSV and manual task progress</p>
-      </div>
-    </div>
+    {/* ORIGINAL PAGE */}
+    <PlansSection />
 
-    <div className="section-content">
+    {/* ADDON TRACKER */}
+    <div style={{ marginTop: "30px" }}>
       <PlansTracker />
-      <PlansSection />
     </div>
 
   </div>
