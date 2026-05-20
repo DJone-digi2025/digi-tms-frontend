@@ -64,99 +64,58 @@ const PlansTracker = () => {
 
     return (
 
-      <div
-        style={{
-          border: "1px solid #e5e7eb",
-          borderRadius: "10px",
-          padding: "14px",
-          marginBottom: "14px",
-          background: "#fff"
-        }}
-      >
+<div className="tracker-section">
 
         {/* HEADER */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "8px",
-            alignItems: "center"
-          }}
-        >
+<div className="section-header">
 
           <div>
-            <div style={{ fontWeight: 700 }}>
+            <div className="section-title">
               {title}
             </div>
 
-            <div
-              style={{
-                fontSize: "13px",
-                color: "#6b7280"
-              }}
-            >
+<div className="section-total">
               Total: {section.total}
             </div>
           </div>
 
-          <button
-            onClick={() => toggle(key)}
-            style={{
-              border: "none",
-              background: "transparent",
-              cursor: "pointer",
-              fontSize: "18px"
-            }}
-          >
+<button
+  onClick={() => toggle(key)}
+  className="dropdown-btn"
+>
             ▼
           </button>
 
         </div>
 
         {/* BAR */}
-        <div
-          style={{
-            width: "100%",
-            height: "18px",
-            display: "flex",
-            overflow: "hidden",
-            borderRadius: "999px",
-            background: "#f3f4f6"
-          }}
-        >
+<div className="progress-bar">
 
-          <div
-            style={{
-              width: `${completedPercent}%`,
-              background: "#22c55e"
-            }}
-          />
+<div
+  className="progress-completed"
+  style={{
+    width: `${completedPercent}%`
+  }}
+/>
 
-          <div
-            style={{
-              width: `${activePercent}%`,
-              background: "#f59e0b"
-            }}
-          />
+<div
+  className="progress-active"
+  style={{
+    width: `${activePercent}%`
+  }}
+/>
 
-          <div
-            style={{
-              width: `${remainingPercent}%`,
-              background: "#d1d5db"
-            }}
-          />
+<div
+  className="progress-remaining"
+  style={{
+    width: `${remainingPercent}%`
+  }}
+/>
 
         </div>
 
         {/* LEGEND */}
-        <div
-          style={{
-            display: "flex",
-            gap: "14px",
-            marginTop: "10px",
-            fontSize: "13px"
-          }}
-        >
+<div className="legend-row">
           <span>🟢 Completed: {section.completed}</span>
           <span>🟠 Active: {section.active}</span>
           <span>⚪ Remaining: {section.remaining}</span>
