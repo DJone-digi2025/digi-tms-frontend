@@ -52,11 +52,6 @@ useEffect(() => {
   fetchData();
 }, []);
 
-
-const membersJson = await membersRes.json();
-
-setMembersData(membersJson);
-
   /* ===== CLIENT ANALYSIS ===== */
 
 // 🔥 CSV ONLY (exclude manual)
