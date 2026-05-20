@@ -138,8 +138,11 @@ const teamPending = members.map(member =>
 const teamCompleted = members.map(member =>
   filteredTeamTasks.filter(
     t =>
-      t.team_members?.name === member &&
-      t.status === "COMPLETED"
+(
+  t.team_members?.name === member ||
+  t.completed_designer?.name === member
+)
+&& t.status === "COMPLETED"
   ).length
 );
 
