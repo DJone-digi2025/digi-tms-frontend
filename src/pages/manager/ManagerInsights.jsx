@@ -27,22 +27,35 @@ const ManagerInsights = () => {
   const [taskCategory, setTaskCategory] = useState("design"); // default safe
   const [selectedMember, setSelectedMember] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
+  const [membersData, setMembersData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const allTasks = await getAllTasks();
-      const clientData = await getClients();
 
-      console.log("TASK SAMPLE:", allTasks[0]);
-      
+useEffect(() => {
+  const fetchData = async () => {
 
-      setTasks(allTasks);
-      setClients(clientData);
-      
-    };
+    const allTasks = await getAllTasks();
+    const clientData = await getClients();
 
-    fetchData();
-  }, []);
+    const membersRes = await fetch(
+      "https://digi-tms-backend.onrender.com/team-members"
+    );
+
+    const membersJson = await membersRes.json();
+
+    console.log("TASK SAMPLE:", allTasks[0]);
+
+    setTasks(allTasks);
+    setClients(clientData);
+    setMembersData(membersJson);
+  };
+
+  fetchData();
+}, []);
+
+
+const membersJson = await membersRes.json();
+
+setMembersData(membersJson);
 
   /* ===== CLIENT ANALYSIS ===== */
 
@@ -135,16 +148,31 @@ const teamPending = members.map(member =>
 );
 
   // ✅ Completed count
+
 const teamCompleted = members.map(member =>
-  filteredTeamTasks.filter(
-    t =>
-(
-  t.team_members?.name === member ||
-  t.completed_designer?.name === member
-)
-&& t.status === "COMPLETED"
-  ).length
+  filteredTeamTasks.filter(t => {
+
+    if (t.status !== "COMPLETED") return false;
+
+    // current owner
+    if (t.team_members?.name === member) {
+      return true;
+    }
+
+    // historical completed owner
+    const completedDesigner = membersData.find(
+      m => m.id === t.completed_by_designer_id
+    );
+
+    if (completedDesigner?.name === member) {
+      return true;
+    }
+
+    return false;
+
+  }).length
 );
+
 
   const teamRework = members.map(member =>
     
