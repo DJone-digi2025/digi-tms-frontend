@@ -195,7 +195,10 @@ setAllTasks(
       // 🔥 STRATEGIST FILTER
 if (user.role === "strategist") {
   filtered = filtered.filter(task => {
-
+    
+if (page === "completed") {
+  return task.status === "COMPLETED";
+}
     // ❌ remove cancelled
     if ((task.status || "").toUpperCase() === "CANCELLED") return false;
 
