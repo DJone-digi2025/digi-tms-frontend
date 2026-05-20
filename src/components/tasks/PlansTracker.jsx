@@ -209,9 +209,15 @@ const PlansTracker = () => {
 
   };
 
-  return (
+return (
 
-    <div>
+  <div
+    style={{
+      height: "100%",
+      overflowY: "auto",
+      paddingRight: "6px"
+    }}
+  >
 
       {Object.values(data).map((client, index) => (
 
