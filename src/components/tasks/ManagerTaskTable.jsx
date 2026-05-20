@@ -150,11 +150,40 @@ const ManagerTaskTable = ({
           : "-"}
       </td>
 
-      <td>
-        <span className={`status ${task.status.toLowerCase()}`}>
-          {task.ready_for_publish ? "READY TO PUBLISH" : task.status}
-        </span>
-      </td>
+
+<td>
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      gap: "4px"
+    }}
+  >
+    <span className={`status ${task.status.toLowerCase()}`}>
+      {task.ready_for_publish ? "READY TO PUBLISH" : task.status}
+    </span>
+
+    {task.submitted_at && (
+      <span
+        style={{
+          fontSize: "11px",
+          color: "#6b7280",
+          lineHeight: "1.2"
+        }}
+      >
+        {new Date(task.submitted_at).toLocaleString("en-IN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true
+        })}
+      </span>
+    )}
+  </div>
+</td>
+
 
       <td style={{ fontWeight: 500 }}>
         {task.stage === "publish" ? "Publish" : "Design"}
