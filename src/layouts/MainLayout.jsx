@@ -13,7 +13,8 @@ import {
   CalendarDays,
   CheckCircle,
   Users,        
-  BarChart3     
+  BarChart3,     
+  FolderKanban
 } from "lucide-react";
 
 const MainLayout = ({ children, setPage, page }) => {
@@ -117,6 +118,11 @@ const MainLayout = ({ children, setPage, page }) => {
               <button className={page === "plans" ? "active" : ""} onClick={() => setPage("plans")}>
                 <span className="icon"><Folder size={18} /></span>
                 {!collapsed && <span>Plans</span>}
+              </button>
+
+              <button className={page === "plans-tracker" ? "active" : ""} onClick={() => setPage("plans-tracker")}>
+                <span className="icon"><FolderKanban size={18} /></span>
+                {!collapsed && <span>Plans Tracker</span>}
               </button>
 
 <button
