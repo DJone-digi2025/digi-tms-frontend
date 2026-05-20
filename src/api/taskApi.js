@@ -344,3 +344,12 @@ export const removePlan = async (taskId) => {
   const res = await axios.patch(`${BASE_URL}/remove-plan/${taskId}`);
   return res.data;
 };
+
+
+export const getPlansTracker = async () => {
+  const response = await axios.get(
+    `${BASE_URL}/plans/tracker`
+  );
+
+  return response.data;
+};

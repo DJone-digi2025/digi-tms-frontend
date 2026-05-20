@@ -12,6 +12,7 @@ import { cancelTask } from "../../api/taskApi";
 import { markTaskLow } from "../../api/taskApi";
 import ManagerTaskTable from "../../components/tasks/ManagerTaskTable";
 import PlansSection from "../../components/tasks/PlansSection";
+import PlansTracker from "../../components/tasks/PlansTracker";
 import { getAssignDatePreview } from "../../api/taskApi";
 import { pauseTasks, pauseUsers } from "../../api/taskApi";
 import { setPriorityOverride } from "../../api/taskApi";
@@ -1218,13 +1219,23 @@ setDelayToast(
 )}
 
     {/* PLANS */}
-    {page === "plans" && (
-      <div className="section">
-        <div className="section-title">Plans</div>
+{page === "plans" && (
+  <div className="page-section">
 
-        <PlansSection />
+    <div className="section-header">
+      <div>
+        <h2>Plans Tracker</h2>
+        <p>Track CSV and manual task progress</p>
       </div>
-    )}
+    </div>
+
+    <div className="section-content">
+      <PlansTracker />
+      <PlansSection />
+    </div>
+
+  </div>
+)}
 
 {page === "team" && (
   <div className="page-section">
