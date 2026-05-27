@@ -178,6 +178,13 @@ const MainLayout = ({ children, setPage, page }) => {
                 <span className="icon"><Folder size={18} /></span>
                 {!collapsed && <span>Plans</span>}
               </button>
+<button
+  className={page === "plans-tracker" ? "active" : ""}
+  onClick={() => setPage("plans-tracker")}
+>
+  <span className="icon"><FolderKanban size={18} /></span>
+  {!collapsed && <span>Tasks Tracker</span>}
+</button>
 
 <button
   className={page === "team" ? "active" : ""}

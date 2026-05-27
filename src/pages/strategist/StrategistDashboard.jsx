@@ -4,6 +4,7 @@ import EmployeeContent from "../employee/EmployeeContent";
 import BillingSection from "./BillingSection";
 import MeetingsSection from "./MeetingsSection";
 import PlansSection from "../../components/tasks/PlansSection";
+import PlansTracker from "../../components/tasks/PlansTracker";
 import EmployeeInsights from "../employee/EmployeeInsights";
 import "../manager/Dashboard.css";
 import { useAuth } from "../../context/AuthContext";
@@ -118,6 +119,24 @@ const StrategistDashboard = () => {
 
         </div>
       )}
+
+{/* ===== TASKS TRACKER ===== */}
+{page === "plans-tracker" && (
+  <div className="page-section">
+
+    <div className="section-header">
+      <div>
+        <h2>Tasks Tracker</h2>
+        <p>Track CSV and manual task progress</p>
+      </div>
+    </div>
+
+    <div className="section-content">
+      <PlansTracker />
+    </div>
+
+  </div>
+)}
 
     </MainLayout>
   );
