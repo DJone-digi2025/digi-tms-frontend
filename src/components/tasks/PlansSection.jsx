@@ -21,6 +21,17 @@ const PlansSection = () => {
   const [loading, setLoading] = useState(false);
   const [clientFilter, setClientFilter] = useState("");
 
+const [clients, setClients] = useState([]);
+
+const [generator, setGenerator] = useState({
+  client_name: "",
+  month: "",
+  reel: 0,
+  post: 0,
+  carousel: 0,
+  bday: 0
+});
+
   const fetchTasks = async () => {
 
     console.log("FETCH STARTED");
@@ -28,6 +39,9 @@ const PlansSection = () => {
   if (!user) return;   // 🔥 ADD THIS
 
   const allTasks = await getAllTasks();
+
+  const clientsData = await getClients();
+setClients(clientsData);
 
   console.log("RAW TASKS:", allTasks);
 
@@ -162,6 +176,103 @@ const handleRemove = async (taskId) => {
 
   return (
     <div className="plans-table-container">
+
+<div className="generator-card">
+
+  <div className="upload-header">
+    <h3>Create Monthly Plan</h3>
+    <p>Generate publish schedule automatically</p>
+  </div>
+
+  <div className="generator-grid">
+
+    <select
+      value={generator.client_name}
+      onChange={(e) =>
+        setGenerator({
+          ...generator,
+          client_name: e.target.value
+        })
+      }
+    >
+      <option value="">Select Client</option>
+
+      {clients.map(client => (
+        <option
+          key={client.id}
+          value={client.client_name}
+        >
+          {client.client_name}
+        </option>
+      ))}
+    </select>
+
+    <input
+      type="month"
+      value={generator.month}
+      onChange={(e) =>
+        setGenerator({
+          ...generator,
+          month: e.target.value
+        })
+      }
+    />
+
+    <input
+      type="number"
+      placeholder="Reels"
+      value={generator.reel}
+      onChange={(e) =>
+        setGenerator({
+          ...generator,
+          reel: Number(e.target.value)
+        })
+      }
+    />
+
+    <input
+      type="number"
+      placeholder="Posts"
+      value={generator.post}
+      onChange={(e) =>
+        setGenerator({
+          ...generator,
+          post: Number(e.target.value)
+        })
+      }
+    />
+
+    <input
+      type="number"
+      placeholder="Carousel"
+      value={generator.carousel}
+      onChange={(e) =>
+        setGenerator({
+          ...generator,
+          carousel: Number(e.target.value)
+        })
+      }
+    />
+
+    <input
+      type="number"
+      placeholder="Birthday"
+      value={generator.bday}
+      onChange={(e) =>
+        setGenerator({
+          ...generator,
+          bday: Number(e.target.value)
+        })
+      }
+    />
+
+  </div>
+
+  <button className="btn btn-green">
+    Generate Preview
+  </button>
+
+</div>
 
       {/* 🔥 UPLOAD CARD */}
       <div className="upload-card">

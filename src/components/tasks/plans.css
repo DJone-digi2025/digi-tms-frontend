@@ -68,3 +68,24 @@
   outline: none;
   border-color: #6366f1;
 }
+
+.generator-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.generator-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.generator-grid input,
+.generator-grid select {
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
