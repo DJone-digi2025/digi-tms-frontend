@@ -70,22 +70,62 @@
 }
 
 .generator-card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
 }
 
 .generator-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 18px;
+  margin-top: 18px;
+  margin-bottom: 20px;
+}
+
+.generator-grid > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.generator-grid label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 6px;
 }
 
 .generator-grid input,
 .generator-grid select {
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+  height: 44px;
+  padding: 0 12px;
+
+  border: 1px solid #dbe2ea;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  font-size: 14px;
+  color: #111827;
+
+  transition: all 0.2s ease;
+}
+
+.generator-grid input:focus,
+.generator-grid select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.generate-btn {
+  min-width: 180px;
+}
+
+@media (max-width: 900px) {
+  .generator-grid {
+    grid-template-columns: 1fr;
+  }
 }

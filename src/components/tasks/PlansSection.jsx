@@ -180,108 +180,116 @@ const handleRemove = async (taskId) => {
 <div className="generator-card">
 
   <div className="upload-header">
-    <h3>Create Monthly Plan</h3>
+    <h3>Monthly Content Planner</h3>
     <p>Generate publish schedule automatically</p>
   </div>
 
   <div className="generator-grid">
 
-    <select
-      value={generator.client_name}
-      onChange={(e) =>
-        setGenerator({
-          ...generator,
-          client_name: e.target.value
-        })
-      }
-    >
-      <option value="">Select Client</option>
+    <div>
+      <label>Client</label>
+      <select
+        value={generator.client_name}
+        onChange={(e) =>
+          setGenerator({
+            ...generator,
+            client_name: e.target.value
+          })
+        }
+      >
+        <option value="">Select Client</option>
 
-      {clients.map(client => (
-        <option
-          key={client.id}
-          value={client.client_name}
-        >
-          {client.client_name}
-        </option>
-      ))}
-    </select>
+        {clients.map(client => (
+          <option
+            key={client.id}
+            value={client.client_name}
+          >
+            {client.client_name}
+          </option>
+        ))}
+      </select>
+    </div>
 
-    <input
-      type="month"
-      value={generator.month}
-      onChange={(e) =>
-        setGenerator({
-          ...generator,
-          month: e.target.value
-        })
-      }
-    />
+    <div>
+      <label>Month</label>
+      <input
+        type="month"
+        value={generator.month}
+        onChange={(e) =>
+          setGenerator({
+            ...generator,
+            month: e.target.value
+          })
+        }
+      />
+    </div>
 
-<div>
-  <label>Reels</label>
-  <input
-    type="number"
-    placeholder="Enter count"
-    value={generator.reel}
-    onChange={(e) =>
-      setGenerator({
-        ...generator,
-        reel: e.target.value
-      })
-    }
-  />
-</div>
+    <div>
+      <label>Reels</label>
+      <input
+        type="number"
+        placeholder="0"
+        value={generator.reel}
+        onChange={(e) =>
+          setGenerator({
+            ...generator,
+            reel: e.target.value
+          })
+        }
+      />
+    </div>
 
-<div>
-  <label>Posts</label>
-  <input
-    type="number"
-    placeholder="Enter count"
-    value={generator.post}
-    onChange={(e) =>
-      setGenerator({
-        ...generator,
-        post: e.target.value
-      })
-    }
-  />
-</div>
+    <div>
+      <label>Posts</label>
+      <input
+        type="number"
+        placeholder="0"
+        value={generator.post}
+        onChange={(e) =>
+          setGenerator({
+            ...generator,
+            post: e.target.value
+          })
+        }
+      />
+    </div>
 
-<div>
-  <label>Carousel</label>
-  <input
-    type="number"
-    placeholder="Enter count"
-    value={generator.carousel}
-    onChange={(e) =>
-      setGenerator({
-        ...generator,
-        carousel: e.target.value
-      })
-    }
-  />
-</div>
+    <div>
+      <label>Carousel</label>
+      <input
+        type="number"
+        placeholder="0"
+        value={generator.carousel}
+        onChange={(e) =>
+          setGenerator({
+            ...generator,
+            carousel: e.target.value
+          })
+        }
+      />
+    </div>
 
-<div>
-  <label>Birthday</label>
-  <input
-    type="number"
-    placeholder="Enter count"
-    value={generator.bday}
-    onChange={(e) =>
-      setGenerator({
-        ...generator,
-        bday: e.target.value
-      })
-    }
-  />
-</div>
+    <div>
+      <label>Birthday</label>
+      <input
+        type="number"
+        placeholder="0"
+        value={generator.bday}
+        onChange={(e) =>
+          setGenerator({
+            ...generator,
+            bday: e.target.value
+          })
+        }
+      />
+    </div>
 
-  <button className="btn btn-green">
+  </div>
+
+  <button className="btn btn-green generate-btn">
     Generate Preview
   </button>
-</div>
+
 </div>
 
       {/* 🔥 UPLOAD CARD */}
