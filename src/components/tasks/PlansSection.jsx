@@ -32,6 +32,15 @@ const [generator, setGenerator] = useState({
   bday: ""
 });
 
+const [previewRows, setPreviewRows] = useState([]);
+const [previewLoading, setPreviewLoading] = useState(false);
+
+const handleGeneratePreview = async () => {
+
+  console.log(generator);
+
+};
+
   const fetchTasks = async () => {
 
     console.log("FETCH STARTED");
@@ -286,9 +295,12 @@ const handleRemove = async (taskId) => {
 
   </div>
 
-  <button className="btn btn-green generate-btn">
-    Generate Preview
-  </button>
+<button
+  className="btn btn-green generate-btn"
+  onClick={handleGeneratePreview}
+>
+  Generate Preview
+</button>
 
 </div>
 
