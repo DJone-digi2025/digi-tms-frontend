@@ -71,6 +71,17 @@ const handlePreviewDateChange = async (
 
 };
 
+const handleRemovePreviewRow = (index) => {
+
+  const updated =
+    previewRows.filter(
+      (_, i) => i !== index
+    );
+
+  setPreviewRows(updated);
+
+};
+
 const [previewLoading, setPreviewLoading] = useState(false);
 
 const handleGeneratePreview = async () => {
@@ -362,32 +373,46 @@ const handleRemove = async (taskId) => {
     <table className="preview-table">
 
       <thead>
-        <tr>
-          <th>Content Type</th>
-          <th>Publish Date</th>
-          <th>Assign Date</th>
-        </tr>
+<tr>
+  <th>Content</th>
+  <th>Publish Date</th>
+  <th>Assign Date</th>
+  <th>Action</th>
+</tr>
       </thead>
 
       <tbody>
 
         {previewRows.map((row, index) => (
-          <tr key={index}>
-            <td>{row.content_type}</td>
-<td>
-  <input
-    type="date"
-    value={row.publish_date}
-    onChange={(e) =>
-      handlePreviewDateChange(
-        index,
-        e.target.value
-      )
-    }
-  />
-</td>
-            <td>{row.assign_date}</td>
-          </tr>
+<tr key={index}>
+  <td>{row.content_type}</td>
+
+  <td>
+    <input
+      type="date"
+      value={row.publish_date}
+      onChange={(e) =>
+        handlePreviewDateChange(
+          index,
+          e.target.value
+        )
+      }
+    />
+  </td>
+
+  <td>{row.assign_date}</td>
+
+  <td>
+    <button
+      className="btn btn-red"
+      onClick={() =>
+        handleRemovePreviewRow(index)
+      }
+    >
+      Remove
+    </button>
+  </td>
+</tr>
         ))}
 
       </tbody>
