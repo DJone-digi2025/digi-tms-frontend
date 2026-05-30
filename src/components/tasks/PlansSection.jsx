@@ -448,12 +448,24 @@ const handleRemove = async (taskId) => {
       </tbody>
 
     </table>
-<button
-  className="btn btn-green"
-  onClick={handleSavePreview}
->
-  Save Plan
-</button>
+    
+<div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
+
+  <button
+    className="btn btn-green"
+    onClick={handleSavePreview}
+  >
+    Save Plan
+  </button>
+
+  <button
+    className="btn btn-red"
+    onClick={() => setPreviewRows([])}
+  >
+    Cancel
+  </button>
+
+</div>
 
   </div>
 )}
