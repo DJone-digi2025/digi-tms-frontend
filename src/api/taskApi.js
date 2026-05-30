@@ -386,3 +386,18 @@ export async function recalculatePlannerAssignDate(data) {
   return res.json();
 
 }
+export const savePlanPreview = async (rows) => {
+
+  const res = await fetch(
+    `${BASE_URL}/plans/save-preview`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ rows })
+    }
+  );
+
+  return res.json();
+};

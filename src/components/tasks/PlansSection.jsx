@@ -14,6 +14,10 @@ import {
   recalculatePlannerAssignDate
 } from "../../api/taskApi";
 
+import {
+  savePlanPreview
+} from "../../api/taskApi";
+
 const PlansSection = () => {
   const { user } = useAuth();
 
@@ -79,6 +83,32 @@ const handleRemovePreviewRow = (index) => {
     );
 
   setPreviewRows(updated);
+
+};
+
+const handleSavePreview = async () => {
+
+  try {
+
+    const result =
+      await savePlanPreview(previewRows);
+
+    if (result.success) {
+
+      alert("Tasks Created");
+
+      setPreviewRows([]);
+
+      fetchTasks();
+    }
+
+  } catch (err) {
+
+    console.error(err);
+
+    alert("Save failed");
+
+  }
 
 };
 
@@ -385,7 +415,7 @@ const handleRemove = async (taskId) => {
 
         {previewRows.map((row, index) => (
 <tr key={index}>
-  <td>{row.content_type}</td>
+  <td>{row.content_type.toUpperCase}</td>
 
   <td>
     <input
@@ -418,6 +448,12 @@ const handleRemove = async (taskId) => {
       </tbody>
 
     </table>
+<button
+  className="btn btn-green"
+  onClick={handleSavePreview}
+>
+  Save Plan
+</button>
 
   </div>
 )}
