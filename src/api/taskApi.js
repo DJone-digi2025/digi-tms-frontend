@@ -357,7 +357,7 @@ export const getPlansTracker = async () => {
 export async function generatePlanPreview(data) {
 
   const res = await fetch(
-    `${API_URL}/plans/generate-preview`,
+    `${BASE_URL}/plans/generate-preview`,
     {
       method: "POST",
       headers: {
