@@ -38,12 +38,6 @@ const [previewLoading, setPreviewLoading] = useState(false);
 
 const handleGeneratePreview = async () => {
 
-  console.log(generator);
-
-};
-
-const handleGeneratePreview = async () => {
-
   try {
 
     const result =
