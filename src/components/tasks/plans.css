@@ -129,3 +129,28 @@
     grid-template-columns: 1fr;
   }
 }
+
+.preview-table-container{
+  margin-top:20px;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:16px;
+}
+
+.preview-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.preview-table th{
+  text-align:left;
+  background:#f8fafc;
+  padding:10px;
+  border-bottom:1px solid #e5e7eb;
+}
+
+.preview-table td{
+  padding:10px;
+  border-bottom:1px solid #f3f4f6;
+}

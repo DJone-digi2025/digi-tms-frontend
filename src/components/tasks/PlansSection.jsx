@@ -40,10 +40,13 @@ const handleGeneratePreview = async () => {
 
   try {
 
-    const result =
-      await generatePlanPreview(generator);
+const result = await generatePlanPreview(generator);
 
-    console.log("PREVIEW RESULT:", result);
+console.log("PREVIEW RESULT:", result);
+
+if (result.success) {
+  setPreviewRows(result.rows);
+}
 
   } catch (err) {
 
@@ -313,6 +316,38 @@ const handleRemove = async (taskId) => {
 >
   Generate Preview
 </button>
+
+{previewRows.length > 0 && (
+  <div className="preview-table-container">
+
+    <h4>Generated Schedule Preview</h4>
+
+    <table className="preview-table">
+
+      <thead>
+        <tr>
+          <th>Content Type</th>
+          <th>Publish Date</th>
+          <th>Assign Date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        {previewRows.map((row, index) => (
+          <tr key={index}>
+            <td>{row.content_type}</td>
+            <td>{row.publish_date}</td>
+            <td>{row.assign_date}</td>
+          </tr>
+        ))}
+
+      </tbody>
+
+    </table>
+
+  </div>
+)}
 
 </div>
 
