@@ -10,6 +10,9 @@ import "./plans.css";
 import { uploadPlanFile } from "../../api/taskApi";
 import { removePlan } from "../../api/taskApi";
 import { generatePlanPreview } from "../../api/taskApi";
+import {
+  recalculatePlannerAssignDate
+} from "../../api/taskApi";
 
 const PlansSection = () => {
   const { user } = useAuth();
@@ -35,19 +38,36 @@ const [generator, setGenerator] = useState({
 
 const [previewRows, setPreviewRows] = useState([]);
 
-const handlePreviewDateChange = (
+const handlePreviewDateChange = async (
   index,
   publishDate
 ) => {
 
-  const updated = [...previewRows];
+  const row = previewRows[index];
 
-  updated[index] = {
-    ...updated[index],
-    publish_date: publishDate
-  };
+  try {
 
-  setPreviewRows(updated);
+    const result =
+      await recalculatePlannerAssignDate({
+        publish_date: publishDate,
+        content_type: row.content_type
+      });
+
+    const updated = [...previewRows];
+
+    updated[index] = {
+      ...updated[index],
+      publish_date: publishDate,
+      assign_date: result.assign_date
+    };
+
+    setPreviewRows(updated);
+
+  } catch (err) {
+
+    console.error(err);
+
+  }
 
 };
 

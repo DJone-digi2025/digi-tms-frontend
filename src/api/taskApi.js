@@ -369,3 +369,20 @@ export async function generatePlanPreview(data) {
 
   return res.json();
 }
+
+export async function recalculatePlannerAssignDate(data) {
+
+  const res = await fetch(
+    `${BASE_URL}/plans/recalculate-assign-date`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }
+  );
+
+  return res.json();
+
+}
