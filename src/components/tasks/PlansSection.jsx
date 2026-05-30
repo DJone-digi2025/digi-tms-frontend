@@ -314,7 +314,7 @@ const handleRemove = async (taskId) => {
   </div>
 
 <button
-  className="btn btn-green generate-btn"
+  className="btn btn-green"
   onClick={handleGeneratePreview}
 >
   Generate Preview
