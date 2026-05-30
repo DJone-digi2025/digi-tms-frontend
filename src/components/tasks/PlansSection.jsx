@@ -448,7 +448,7 @@ const handleRemove = async (taskId) => {
       </tbody>
 
     </table>
-    
+
 <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
 
   <button
@@ -472,7 +472,7 @@ const handleRemove = async (taskId) => {
 
 </div>
 
-      {/* 🔥 UPLOAD CARD */}
+{/*
       <div className="upload-card">
 
         <div className="upload-header">
@@ -502,7 +502,8 @@ const handleRemove = async (taskId) => {
           </p>
         )}
 
-      </div>
+      </div> 
+*/}
 
       <div className="plans-filter">
         <select
