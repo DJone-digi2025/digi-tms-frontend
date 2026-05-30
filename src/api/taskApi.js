@@ -353,3 +353,19 @@ export const getPlansTracker = async () => {
 
   return response.data;
 };
+
+export async function generatePlanPreview(data) {
+
+  const res = await fetch(
+    `${API_URL}/plans/generate-preview`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }
+  );
+
+  return res.json();
+}

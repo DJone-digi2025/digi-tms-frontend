@@ -9,6 +9,7 @@ import { useAuth } from "../../context/AuthContext";
 import "./plans.css";
 import { uploadPlanFile } from "../../api/taskApi";
 import { removePlan } from "../../api/taskApi";
+import { generatePlanPreview } from "../../api/taskApi";
 
 const PlansSection = () => {
   const { user } = useAuth();
@@ -38,6 +39,23 @@ const [previewLoading, setPreviewLoading] = useState(false);
 const handleGeneratePreview = async () => {
 
   console.log(generator);
+
+};
+
+const handleGeneratePreview = async () => {
+
+  try {
+
+    const result =
+      await generatePlanPreview(generator);
+
+    console.log("PREVIEW RESULT:", result);
+
+  } catch (err) {
+
+    console.error(err);
+
+  }
 
 };
 
