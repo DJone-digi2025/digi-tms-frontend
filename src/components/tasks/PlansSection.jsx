@@ -220,7 +220,7 @@ const handleRemove = async (taskId) => {
 
     <input
       type="number"
-      placeholder="Reels"
+      placeholder="Reels Count"
       value={generator.reel}
       onChange={(e) =>
         setGenerator({
@@ -232,7 +232,7 @@ const handleRemove = async (taskId) => {
 
     <input
       type="number"
-      placeholder="Posts"
+      placeholder="Posts Count"
       value={generator.post}
       onChange={(e) =>
         setGenerator({
@@ -244,7 +244,7 @@ const handleRemove = async (taskId) => {
 
     <input
       type="number"
-      placeholder="Carousel"
+      placeholder="Carousel Count"
       value={generator.carousel}
       onChange={(e) =>
         setGenerator({
@@ -256,7 +256,7 @@ const handleRemove = async (taskId) => {
 
     <input
       type="number"
-      placeholder="Birthday"
+      placeholder="Birthday Count"
       value={generator.bday}
       onChange={(e) =>
         setGenerator({
