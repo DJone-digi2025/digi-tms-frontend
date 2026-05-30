@@ -26,10 +26,10 @@ const [clients, setClients] = useState([]);
 const [generator, setGenerator] = useState({
   client_name: "",
   month: "",
-  reel: 0,
-  post: 0,
-  carousel: 0,
-  bday: 0
+  reel: "",
+  post: "",
+  carousel: "",
+  bday: ""
 });
 
   const fetchTasks = async () => {
@@ -218,60 +218,70 @@ const handleRemove = async (taskId) => {
       }
     />
 
-    <input
-      type="number"
-      placeholder="Reels Count"
-      value={generator.reel}
-      onChange={(e) =>
-        setGenerator({
-          ...generator,
-          reel: Number(e.target.value)
-        })
-      }
-    />
+<div>
+  <label>Reels</label>
+  <input
+    type="number"
+    placeholder="Enter count"
+    value={generator.reel}
+    onChange={(e) =>
+      setGenerator({
+        ...generator,
+        reel: e.target.value
+      })
+    }
+  />
+</div>
 
-    <input
-      type="number"
-      placeholder="Posts Count"
-      value={generator.post}
-      onChange={(e) =>
-        setGenerator({
-          ...generator,
-          post: Number(e.target.value)
-        })
-      }
-    />
+<div>
+  <label>Posts</label>
+  <input
+    type="number"
+    placeholder="Enter count"
+    value={generator.post}
+    onChange={(e) =>
+      setGenerator({
+        ...generator,
+        post: e.target.value
+      })
+    }
+  />
+</div>
 
-    <input
-      type="number"
-      placeholder="Carousel Count"
-      value={generator.carousel}
-      onChange={(e) =>
-        setGenerator({
-          ...generator,
-          carousel: Number(e.target.value)
-        })
-      }
-    />
+<div>
+  <label>Carousel</label>
+  <input
+    type="number"
+    placeholder="Enter count"
+    value={generator.carousel}
+    onChange={(e) =>
+      setGenerator({
+        ...generator,
+        carousel: e.target.value
+      })
+    }
+  />
+</div>
 
-    <input
-      type="number"
-      placeholder="Birthday Count"
-      value={generator.bday}
-      onChange={(e) =>
-        setGenerator({
-          ...generator,
-          bday: Number(e.target.value)
-        })
-      }
-    />
-
-  </div>
+<div>
+  <label>Birthday</label>
+  <input
+    type="number"
+    placeholder="Enter count"
+    value={generator.bday}
+    onChange={(e) =>
+      setGenerator({
+        ...generator,
+        bday: e.target.value
+      })
+    }
+  />
+</div>
 
   <button className="btn btn-green">
     Generate Preview
   </button>
-
+</div>
 </div>
 
       {/* 🔥 UPLOAD CARD */}
