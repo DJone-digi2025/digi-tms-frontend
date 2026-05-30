@@ -34,6 +34,23 @@ const [generator, setGenerator] = useState({
 });
 
 const [previewRows, setPreviewRows] = useState([]);
+
+const handlePreviewDateChange = (
+  index,
+  publishDate
+) => {
+
+  const updated = [...previewRows];
+
+  updated[index] = {
+    ...updated[index],
+    publish_date: publishDate
+  };
+
+  setPreviewRows(updated);
+
+};
+
 const [previewLoading, setPreviewLoading] = useState(false);
 
 const handleGeneratePreview = async () => {
@@ -337,7 +354,18 @@ const handleRemove = async (taskId) => {
         {previewRows.map((row, index) => (
           <tr key={index}>
             <td>{row.content_type}</td>
-            <td>{row.publish_date}</td>
+<td>
+  <input
+    type="date"
+    value={row.publish_date}
+    onChange={(e) =>
+      handlePreviewDateChange(
+        index,
+        e.target.value
+      )
+    }
+  />
+</td>
             <td>{row.assign_date}</td>
           </tr>
         ))}

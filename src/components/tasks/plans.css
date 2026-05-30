@@ -154,3 +154,10 @@
   padding:10px;
   border-bottom:1px solid #f3f4f6;
 }
+.preview-table input[type="date"] {
+  padding: 6px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 13px;
+  background: white;
+}
