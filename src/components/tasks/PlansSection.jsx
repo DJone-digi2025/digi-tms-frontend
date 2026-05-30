@@ -415,7 +415,7 @@ const handleRemove = async (taskId) => {
 
         {previewRows.map((row, index) => (
 <tr key={index}>
-  <td>{row.content_type.toUpperCase}</td>
+  <td>{row.label}</td>
 
   <td>
     <input
